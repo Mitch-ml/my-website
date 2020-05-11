@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1589214493869.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "1D8569C6",
+    "lastKnownWriteTime" : 1589206550,
+    "last_content_update" : 1589206550,
+    "path" : "~/R/blog/content/about.md",
+    "project_path" : null,
+    "properties" : {
+        "cursorPosition" : "17,174",
+        "scrollLine" : "9"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "markdown"
+}
