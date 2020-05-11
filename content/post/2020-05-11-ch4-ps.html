@@ -1,0 +1,432 @@
+---
+title: "Chapter 4 Problem Set"
+author: "Mitch"
+date: "2020-05-09"
+output: 
+  html_document:
+    # keep_md: yes
+    # toc: true
+    # toc_float: true
+    # theme: united
+categories: ["R"]
+summary: "Statistical Rethinking chapter 4 problem set"
+tags: ["Statistical Rethinking", "problem sets", "bayesian", "regression"]
+---
+
+
+
+<div id="e1" class="section level2">
+<h2>4E1</h2>
+<p>In the model definition below, which line is the likelihood?
+<span class="math display">\[
+\begin{array}{l}
+y_{i} \sim \text{Normal}(\mu, \sigma) \\
+\mu \sim \text{Normal}(0, 10) \\
+\sigma \sim \text{Uniform}(0, 10)
+\end{array}
+\]</span></p>
+<p>In this example <span class="math inline">\(y_{i}\)</span> is the likelihood.</p>
+</div>
+<div id="e2" class="section level2">
+<h2>4E2</h2>
+<p>In the model definition just above, how many parameters are in the posterior distribution?</p>
+<p>In this case there are two parameters, <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>.</p>
+</div>
+<div id="e3" class="section level2">
+<h2>4E3</h2>
+<p>Using the model definition above, write down the appropriate form of Bayes’ theorem that includes the proper likelihood and prior.</p>
+<p>Refering from page 83, we have
+<span class="math display">\[
+Pr(\mu,\sigma|y) = \frac{\prod_{i}\text{Normal}(y_{i}|\mu,\sigma)\text{Normal}(\mu|0,10)\text{Uniform}(\sigma|0,10)}{\int \int \prod_{i}\text{Normal}(y_{i}|\mu,\sigma)\text{Normal}(\mu|0,10)\text{Uniform}(\sigma|0,10)d\mu d\sigma}
+\]</span></p>
+</div>
+<div id="e4" class="section level2">
+<h2>4E4</h2>
+<p>In the model definition below, which line is the linear model?
+<span class="math display">\[
+\begin{array}{l}
+y_{i} \sim \text{Normal}(\mu, \sigma) \\
+\mu = \alpha + \beta x_{i} \\
+\alpha \sim \text{Normal}(0,10) \\
+\beta \sim \text{Normal}(0,1) \\
+\sigma \sim \text{Uniform}(0,10)
+\end{array}
+\]</span>
+Here we have <span class="math inline">\(y_{i}\)</span> is the likelihood, <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span>, and <span class="math inline">\(\sigma\)</span> are all priors. Leaving <span class="math inline">\(\mu\)</span> as the linear model.</p>
+</div>
+<div id="e5" class="section level2">
+<h2>4E5</h2>
+<p>In the model definition just above, how many parameters are in the posterior distribution?</p>
+<p>We sort of answered that in the question above, it’s all the stochastic relationships, or variables defined probabilistically, read the priors. So <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span>, and <span class="math inline">\(\sigma\)</span> are all the parameters in the distribution. <span class="math inline">\(\mu\)</span> is not a parameter because it is defined deterministically instead of probabilistically.</p>
+</div>
+<div id="m1" class="section level2">
+<h2>4M1</h2>
+<p>For the model definition below, simulate observed heights from the prior (not the posterior).
+<span class="math display">\[
+\begin{array}{l}
+y_{i} \sim \text{Normal}(\mu, \sigma) \\
+\mu \sim \text{Normal}(0, 10) \\
+\sigma \sim \text{Uniform}(0, 10)
+\end{array}
+\]</span></p>
+<pre class="r"><code>sample_mu &lt;- rnorm(1e4, 0, 10)
+sample_sigma &lt;- runif(1e4, 0, 10)
+prior_y &lt;- rnorm(1e4, sample_mu, sample_sigma)
+dens(prior_y)</code></pre>
+<p><img src="/post/2020-05-11-ch4-ps_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+</div>
+<div id="m2" class="section level2">
+<h2>4M2</h2>
+<p>Translate the model just above into a map formula</p>
+<pre class="r"><code>flist &lt;- alist(
+  y ~ dnorm(mu, sigma),
+  mu ~ dnorm(0, 10),
+  sigma ~ dunif(0, 10)
+)</code></pre>
+</div>
+<div id="m3" class="section level2">
+<h2>4M3</h2>
+<p>Translate the map model formula below into a mathematical definition.</p>
+<pre class="r"><code>flist &lt;- alist(
+  y ~ dnorm(mu, sigma),
+  mu &lt;- a + b*x,
+  a ~ dnorm(0, 50),
+  b ~ dunif(0, 10),
+  sigma ~ dunif(0, 50)
+)</code></pre>
+<p><span class="math display">\[
+\begin{array}{l}
+y_{i} \sim \text{Normal}(\mu, \sigma) \\
+\mu = \alpha + \beta x_{i} \\
+\alpha \sim \text{Normal}(0, 50) \\
+\beta \sim \text{Uniform}(0, 10) \\
+\sigma \sim \text{Uniform}(0, 50)
+\end{array}
+\]</span></p>
+</div>
+<div id="m4" class="section level2">
+<h2>4M4</h2>
+<p>A sample of students is measured for height each year for 3 years. After the third year, you want to fit a linear regression predicting heigh using year as a predictor. Write down the mathematical model definition for this regression, using any variable names and priors you choose. Be prepared to defend your choice of priors.</p>
+<p><span class="math display">\[
+\begin{array}{l}
+h_{i} \sim \text{Normal}(\mu, \sigma) \\
+\mu = \alpha + \beta x_{i} \\
+\alpha \sim \text{Normal}(140, 20) \\
+\beta \sim \text{Normal}(4, 2) \\
+\sigma \sim \text{Uniform}(0, 50)
+\end{array}
+\]</span></p>
+<pre class="r"><code>a &lt;- rnorm(1e4, 140, 20)
+b &lt;- rnorm(1e4, 4, 2)
+# x_i &lt;- ceiling(runif(1e4, 0, 3))
+x_i &lt;- sample(1:3, 1e4, replace = TRUE)
+# plot(x_i)
+sample_mu &lt;- a + b*x_i
+sample_sigma &lt;- runif(1e4, 0, 20)
+prior_y &lt;- rnorm(1e4, sample_mu, sample_sigma)
+dens(prior_y)</code></pre>
+<p><img src="/post/2020-05-11-ch4-ps_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>For <span class="math inline">\(\alpha\)</span> I chose a mean of 140 because we don’t know the age of the students, and this seems like a pretty safe average, additionally, a standard deviation of 20 implies that 95% of the data will lie within the range <span class="math inline">\(140 \pm 40\)</span>. We know that most students aren’t shrinking so <span class="math inline">\(\beta\)</span> doesn’t have to include negative values, by centering it at 4, with standard deviation of 2, we leave room for students to not grow at all, while still allowing for upwards of 8cm of growth per year which I think is adequate. <span class="math inline">\(\sigma\)</span> was chosen to be uniformly distributed from 0 to 20 to give us a decent amount of wiggle room if needed.</p>
+</div>
+<div id="m5" class="section level2">
+<h2>4M5</h2>
+<p>Now suppose I tell you that the average height in the first year was 120cm and that every student got taller each year. Does this information lead you to change your choice of priors? How?</p>
+<p>Yes, since the average height is 120cm we know we’re dealing with younger kids. Given this information we can center <span class="math inline">\(\alpha\)</span> around this new average of 120cm, we’ll increase <span class="math inline">\(\beta\)</span> because younger kids should grow more each year. Lastly, we’ll decrease sigma because we’re less likely to see children at full height.
+<span class="math display">\[
+\begin{array}{l}
+h_{i} \sim \text{Normal}(\mu, \sigma) \\
+\mu = \alpha + \beta x_{i} \\
+\alpha \sim \text{Normal}(120, 10) \\
+\beta \sim \text{Normal}(6, 2) \\
+\sigma \sim \text{Uniform}(0, 10)
+\end{array}
+\]</span></p>
+<pre class="r"><code>a &lt;- rnorm(1e4, 120, 10)
+b &lt;- rnorm(1e4, 6, 2)
+x_i &lt;- sample(1:3, 1e4, replace = TRUE)
+sample_mu &lt;- a + b*x_i
+sample_sigma &lt;- runif(1e4, 0, 10)
+prior_y &lt;- rnorm(1e4, sample_mu, sample_sigma)
+dens(prior_y)</code></pre>
+<p><img src="/post/2020-05-11-ch4-ps_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+</div>
+<div id="m6" class="section level2">
+<h2>4M6</h2>
+<p>Now suppose I tell you that the variance among heights for students of the same age is never more than 64cm. How does this lead you to revise your priors?</p>
+<p>If the variance is never more than 64cm, then the standard deviation shoudn’t be more than <span class="math inline">\(\sqrt{64} = 8\text{cm}\)</span>. We had already lowered our estimates for <span class="math inline">\(\sigma\)</span> but we’ll just lower it slightly more.</p>
+<p><span class="math display">\[
+\begin{array}{l}
+h_{i} \sim \text{Normal}(\mu, \sigma) \\
+\mu = \alpha + \beta x_{i} \\
+\alpha \sim \text{Normal}(120, 10) \\
+\beta \sim \text{Normal}(6, 2) \\
+\sigma \sim \text{Uniform}(0, 8)
+\end{array}
+\]</span></p>
+</div>
+<div id="h1" class="section level2">
+<h2>4H1</h2>
+<p>the weights listed below were recorded in the !Kung census, but heights were not recorded for these individuals. Provide predicted heights and 89% intervals (either HPDI or PI) for each of these individuals. That is, fill in the table below, using model-based predictions.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Individual</th>
+<th>weight</th>
+<th>expected height</th>
+<th>89% interval</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>46.95</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>43.72</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>64.78</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>32.59</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>54.63</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>data(&quot;Howell1&quot;)
+d &lt;- Howell1
+d$weight.s &lt;- (d$weight - mean(d$weight))/sd(d$weight)
+weight.seq &lt;- c(46.95, 43.72, 64.78, 32.59, 54.63)
+weight.seq.s &lt;- (weight.seq - mean(d$weight))/sd(d$weight)
+
+# build model
+m &lt;- quap(
+  alist(
+    height ~ dnorm(mu, sigma),
+    mu &lt;- alpha + beta*weight.s,
+    alpha ~ dnorm(178, 100),
+    beta ~ dnorm(0, 10),
+    sigma ~ dunif(0, 50)
+  ), data = d) 
+
+# simulate heights
+sim.height &lt;- sim(m, data = list(weight.s = weight.seq.s))
+
+# calculate mean height and HPDI intervals
+height.mean &lt;- apply(sim.height, 2, mean)
+height.HPDI &lt;- apply(sim.height, 2, HPDI)
+
+data.frame(cbind(&quot;expected height&quot; = height.mean, 
+                 &quot;HPDI lower&quot; = height.HPDI[1,], 
+                 &quot;HPDI upper&quot; = height.HPDI[2,] ))</code></pre>
+<pre><code>##   expected.height HPDI.lower HPDI.upper
+## 1        158.1460   144.1036   173.4390
+## 2        152.7490   137.8508   166.2481
+## 3        189.4287   174.8164   203.7536
+## 4        133.4373   119.0272   148.5409
+## 5        171.7682   157.8283   187.3320</code></pre>
+</div>
+<div id="h2" class="section level2">
+<h2>4H2</h2>
+<p>Select out all the rows in the Howell1 data with ages below 18 years of age. If you do it right you should end up with a new data frame with 192 rows in it.</p>
+<pre class="r"><code>data(&quot;Howell1&quot;)
+d &lt;- Howell1 %&gt;%
+  subset(age &lt; 18)</code></pre>
+<div id="a" class="section level3">
+<h3>(a)</h3>
+<p>Fit a linear regression to these data, using map. Present and interpret the estimates. For every 10 units of increase in weight, how much taller does the model predict a child gets.</p>
+<p>Children under the age of 18 encompass a pretty wide range of heights so I’m going to pick an <span class="math inline">\(\alpha\)</span> that incorporates the range from 60cm to 180cm. <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\sigma\)</span> were chosen weakly just to give ourselves enough room to work.</p>
+<pre class="r"><code>m &lt;- quap(
+  alist(
+    height ~ dnorm(mu, sigma),
+    mu &lt;- alpha + beta * weight,
+    alpha ~ dnorm(120, 30),
+    beta ~ dnorm(0, 10),
+    sigma ~ dunif(0, 50)
+  ), data = d
+)
+
+precis(m)</code></pre>
+<pre><code>##            mean         sd      5.5%     94.5%
+## alpha 58.366630 1.39577162 56.135918 60.597343
+## beta   2.714082 0.06823543  2.605028  2.823135
+## sigma  8.437320 0.43058708  7.749159  9.125481</code></pre>
+<p>We interpret this as the average height when weight is 0 is 58.37cm. For every 10 units of increase in weight, we’d expect a person to be 27.1cm taller.</p>
+</div>
+<div id="b" class="section level3">
+<h3>(b)</h3>
+<p>Plot the raw data, with height on the vertical axis and weight on the horizontal axis. Superimpose the MAP regression line and 89% HPDI for the mean. Also superimpose the 89% HPDI for the predicted heights.</p>
+<p>I personally prefer the graphics of ggplot, so below I used a slightly different method to that used in the book.</p>
+<pre class="r"><code># model from above
+m &lt;- quap(
+  alist(
+    height ~ dnorm(mu, sigma),
+    mu &lt;- alpha + beta * weight,
+    alpha ~ dnorm(120, 30),
+    beta ~ dnorm(0, 10),
+    sigma ~ dunif(0, 50)
+  ), data = d
+)
+
+
+weight.seq &lt;- seq(from = 0, to = max(d$weight), by = 1)
+pred_dat &lt;- list(weight = weight.seq)
+mu &lt;- link(m, data = pred_dat)
+mu.mean &lt;- apply(mu, 2, mean)
+mu.HPDI &lt;- apply(mu, 2, HPDI, prob = 0.89)
+sim.height &lt;- sim(m, data = pred_dat)
+height.HPDI &lt;- apply(sim.height, 2, HPDI, prob = 0.89)
+
+df &lt;- data.frame(cbind(weight.seq, 
+                        mu.mean, 
+                        &quot;mu.lower&quot; = t(mu.HPDI)[,1],
+                        &quot;mu.upper&quot; = t(mu.HPDI)[,2],
+                        &quot;HPDI.lower&quot; = t(height.HPDI)[,1],
+                        &quot;HPDI.upper&quot; = t(height.HPDI)[,2]))
+
+ggplot() +
+  geom_ribbon(data = df,
+              aes(x = weight.seq, y = mu.mean,
+                  ymin = HPDI.lower, ymax = HPDI.upper),
+              fill = &quot;grey83&quot;) +  
+  geom_smooth(data = df, 
+              aes(x = weight.seq, y = mu.mean,
+                  ymin = mu.lower, ymax = mu.upper),
+              stat = &quot;identity&quot;,
+              fill = &quot;grey70&quot;,
+              alpha = 1,
+              size = 1/2) +
+  geom_point(data = d, 
+              aes(x = weight, y = height)) +
+  coord_cartesian(xlim = range(d$weight),
+                    ylim = range(d$height)) +
+  labs(x = &quot;Weight&quot;,
+         y = &quot;Height&quot;) +
+  theme(panel.grid = element_blank())</code></pre>
+<p><img src="/post/2020-05-11-ch4-ps_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+</div>
+<div id="c" class="section level3">
+<h3>(c)</h3>
+<p>What aspects of the model fit concern you? Describe the kinds of assumptions you would change, if any, to improve the model. You don’t have to write any new code. Just explain what the model appears to be doing a bad job of, and what you hypothesize would be a better model.</p>
+<p>The data is curved and a straight line really doesn’t fit the data very well. It’s ok for some of the middle weights but does a very poor job at either extreme. Given what we’ve learned so far, I think a second order polynomial function would be best.</p>
+</div>
+</div>
+<div id="h3" class="section level2">
+<h2>4H3</h2>
+<p>Suppose a colleague of yours, who works on allometry, glances at the practice problems just above. Your colleague exclaims, “That’s silly. Everyone knows that it’s only the <em>logarithm</em> of body weight that scales with height!” Let’s take your colleague’s advice and see what happens.</p>
+<div id="a-1" class="section level3">
+<h3>(a)</h3>
+<p>Model the relationship between height (cm) and the natural logarithm of weight (log-kg). Use the entire Howell1 data frame, all 544 rows, adults and non-adults. Fit this model, using quadratic approximation.</p>
+<p><span class="math display">\[
+\begin{array}{l}
+h_{i} \sim \text{Normal}(\mu_{i}, \sigma) \\
+\mu_{i} = \alpha + \beta\text{log}(w_{i}) \\
+\alpha \sim \text{Normal}(178, 100) \\
+\beta \sim \text{Normal}(0, 100) \\
+\sigma \sim \text{Uniform}(0, 50)
+\end{array}
+\]</span>
+where <span class="math inline">\(h_{i}\)</span> is the height of individual <span class="math inline">\(i\)</span> and <span class="math inline">\(w_{i}\)</span> is the weight (in kg) of individual <span class="math inline">\(i\)</span>. The function for computing a natural log in R is just log. Can you interpret the resulting estimates?</p>
+<pre class="r"><code>data(&quot;Howell1&quot;)
+d &lt;- Howell1
+d$weight.s &lt;- (d$weight - mean(d$weight))/sd(d$weight)
+d$weight.s2 &lt;- d$weight.s^2
+
+m &lt;- quap(
+  alist(
+    height ~ dnorm(mu, sigma),
+    mu &lt;- alpha + beta*log(weight),
+    alpha ~ dnorm(178, 100),
+    beta ~ dnorm(0, 100),
+    sigma ~ dunif(0, 50)
+  ), data = d
+)
+
+precis(m)</code></pre>
+<pre><code>##             mean        sd       5.5%      94.5%
+## alpha -23.784150 1.3351132 -25.917919 -21.650381
+## beta   47.075315 0.3825445  46.463935  47.686695
+## sigma   5.134688 0.1556673   4.885902   5.383475</code></pre>
+<p>This is a little funky to interpret to interpret.</p>
+<ul>
+<li><span class="math inline">\(\alpha\)</span>: means that when log weight is equal to zero, height is equal to -23.78.</li>
+<li><span class="math inline">\(\beta\)</span>: means that a one unit increase in log weight corresponds to a 47.08cm increase in height.</li>
+<li><span class="math inline">\(\sigma\)</span>: means that the standard deviation in height predictions is 5.13cm.</li>
+</ul>
+</div>
+<div id="b-1" class="section level3">
+<h3>(b)</h3>
+<p>Begin with this plot:</p>
+<pre class="r"><code>plot(height ~ weight, data=Howell1,
+     col=col.alpha(rangi2, 0.4))</code></pre>
+<p><img src="/post/2020-05-11-ch4-ps_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>Then use samples from the quadratic approximate posterior of the model in (a) to superimpose on the plot:</p>
+<ol style="list-style-type: decimal">
+<li>the predicted mean height as a function of weight</li>
+<li>the 97% HPDI for the mean</li>
+<li>the 97% HPDI for predicted heights</li>
+</ol>
+<p>Like I mentioned before, I prefer ggplot, so things might look a little different on my end. But the code is essentially identical to part b in 4H2. The only thing we need to change is the probability ranges for our HPDI, and of course use the new model we defined in part a.</p>
+<pre class="r"><code>m &lt;- quap(
+  alist(
+    height ~ dnorm(mu, sigma),
+    mu &lt;- alpha + beta*log(weight),
+    alpha ~ dnorm(178, 100),
+    beta ~ dnorm(0, 100),
+    sigma ~ dunif(0, 50)
+  ), data = d
+)
+
+weight.seq &lt;- seq(from = 0, to = max(d$weight), by = 1)
+pred_dat &lt;- list(weight = weight.seq)
+mu &lt;- link(m, data = pred_dat)
+mu.mean &lt;- apply(mu, 2, mean)
+mu.HPDI &lt;- apply(mu, 2, HPDI, prob = 0.97)
+sim.height &lt;- sim(m, data = pred_dat)
+height.HPDI &lt;- apply(sim.height, 2, HPDI, prob = 0.97)
+
+df &lt;- data.frame(cbind(weight.seq, 
+                        mu.mean, 
+                        &quot;mu.lower&quot; = t(mu.HPDI)[,1],
+                        &quot;mu.upper&quot; = t(mu.HPDI)[,2],
+                        &quot;HPDI.lower&quot; = t(height.HPDI)[,1],
+                        &quot;HPDI.upper&quot; = t(height.HPDI)[,2]))
+
+ggplot() +
+  geom_ribbon(data = df,
+              aes(x = weight.seq, y = mu.mean,
+                  ymin = HPDI.lower, ymax = HPDI.upper),
+              fill = &quot;grey83&quot;) +  
+  geom_smooth(data = df, 
+              aes(x = weight.seq, y = mu.mean,
+                  ymin = mu.lower, ymax = mu.upper),
+              stat = &quot;identity&quot;,
+              fill = &quot;grey70&quot;,
+              alpha = 1,
+              size = 1/2) +
+  geom_point(data = d, 
+              aes(x = weight, y = height)) +
+  coord_cartesian(xlim = range(d$weight),
+                    ylim = range(d$height)) +
+  labs(x = &quot;Weight&quot;,
+         y = &quot;Height&quot;) +
+  theme(panel.grid = element_blank())</code></pre>
+<p><img src="/post/2020-05-11-ch4-ps_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+</div>
+</div>
