@@ -13,7 +13,7 @@ interests:
 - Statistical Learning
 - Finance
 organizations:
-- name: Vespers
+- name: Vespers Capital, LLC
   url: ""
 role: Data Scientist
 social:
@@ -38,9 +38,9 @@ user_groups:
 
 I help organizations understand and leverage their quantitative information. Call it what you will: data science, machine learning, or statistics; the modern technological world lies at the intersection of mathematics and computing, and that’s where I like to play.
 
-I’ve worked with [Stage 1 start-ups][1] and [Venture capital funds][2], building models, establishing codebases, and providing mathematical expertise to developers. I mainly use R, but have experience in Python and SQL.
+I’ve worked with [stage 1 start-ups][1] and [venture capital funds][2], building models, establishing codebases, and providing mathematical expertise to developers. I mainly use R, but have experience in Python and SQL.
 
-I have a bachelors degree in Mathematics from St. Lawrence University, where I did my thesis on the [Erdos Faber Lovasz conjecture][3]. After spending some time pursuing other interests[^fnote1], I began working at a young startup where I got introduced to a range of topics in statistics and data analytics. I primarily focus on using survival analysis to help predict customer churn, but I’m constantly trying to develop and learn new skills. For more details, check out my portfolio, or take a look at my [resume][4].
+I have a bachelors degree in Mathematics from St. Lawrence University, where I did my thesis on the [Erdos-Faber-Lovasz conjecture][3]. After spending some time pursuing other interests[^fnote1], I began working at a young startup where I got introduced to a range of topics in statistics and data analytics. I primarily focus on using survival analysis to help predict customer churn, but I’m constantly trying to develop and learn new skills. For more details, check out my portfolio, or take a look at my [resume][4].
 
 I currently reside in Litchfield, CT.
 
