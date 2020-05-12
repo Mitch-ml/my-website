@@ -1,12 +1,12 @@
 ---
 date: "2019-05-05T00:00:00+01:00"
 draft: false
-linktitle: Tips 1-2
+linktitle: Chapters 1-3
 menu:
   example:
     parent: Example Topic
     weight: 1
-title: Example Page 1
+title: Chapter 1-3
 toc: true
 type: docs
 weight: 1
