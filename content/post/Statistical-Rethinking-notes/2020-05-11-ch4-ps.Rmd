@@ -9,7 +9,7 @@ output:
     # toc_float: true
     # theme: united
 categories: ["R"]
-summary: "Statistical Rethinking chapter 4 problem set"
+summary: "Statistical Rethinking chapter 4 exercises"
 tags: ["Statistical Rethinking", "problem sets", "bayesian", "regression"]
 ---
  

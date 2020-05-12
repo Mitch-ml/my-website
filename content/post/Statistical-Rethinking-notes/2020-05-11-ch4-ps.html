@@ -9,7 +9,7 @@ output:
     # toc_float: true
     # theme: united
 categories: ["R"]
-summary: "Statistical Rethinking chapter 4 problem set"
+summary: "Statistical Rethinking chapter 4 exercises"
 tags: ["Statistical Rethinking", "problem sets", "bayesian", "regression"]
 ---
 
@@ -73,7 +73,7 @@ y_{i} \sim \text{Normal}(\mu, \sigma) \\
 sample_sigma &lt;- runif(1e4, 0, 10)
 prior_y &lt;- rnorm(1e4, sample_mu, sample_sigma)
 dens(prior_y)</code></pre>
-<p><img src="/post/2020-05-11-ch4-ps_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p><img src="/post/Statistical-Rethinking-notes/2020-05-11-ch4-ps_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
 </div>
 <div id="m2" class="section level2">
 <h2>4M2</h2>
@@ -125,7 +125,7 @@ sample_mu &lt;- a + b*x_i
 sample_sigma &lt;- runif(1e4, 0, 20)
 prior_y &lt;- rnorm(1e4, sample_mu, sample_sigma)
 dens(prior_y)</code></pre>
-<p><img src="/post/2020-05-11-ch4-ps_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><img src="/post/Statistical-Rethinking-notes/2020-05-11-ch4-ps_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>For <span class="math inline">\(\alpha\)</span> I chose a mean of 140 because we don’t know the age of the students, and this seems like a pretty safe average, additionally, a standard deviation of 20 implies that 95% of the data will lie within the range <span class="math inline">\(140 \pm 40\)</span>. We know that most students aren’t shrinking so <span class="math inline">\(\beta\)</span> doesn’t have to include negative values, by centering it at 4, with standard deviation of 2, we leave room for students to not grow at all, while still allowing for upwards of 8cm of growth per year which I think is adequate. <span class="math inline">\(\sigma\)</span> was chosen to be uniformly distributed from 0 to 20 to give us a decent amount of wiggle room if needed.</p>
 </div>
 <div id="m5" class="section level2">
@@ -148,7 +148,7 @@ sample_mu &lt;- a + b*x_i
 sample_sigma &lt;- runif(1e4, 0, 10)
 prior_y &lt;- rnorm(1e4, sample_mu, sample_sigma)
 dens(prior_y)</code></pre>
-<p><img src="/post/2020-05-11-ch4-ps_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><img src="/post/Statistical-Rethinking-notes/2020-05-11-ch4-ps_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 </div>
 <div id="m6" class="section level2">
 <h2>4M6</h2>
@@ -319,7 +319,7 @@ ggplot() +
   labs(x = &quot;Weight&quot;,
          y = &quot;Height&quot;) +
   theme(panel.grid = element_blank())</code></pre>
-<p><img src="/post/2020-05-11-ch4-ps_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p><img src="/post/Statistical-Rethinking-notes/2020-05-11-ch4-ps_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 </div>
 <div id="c" class="section level3">
 <h3>(c)</h3>
@@ -375,7 +375,7 @@ precis(m)</code></pre>
 <p>Begin with this plot:</p>
 <pre class="r"><code>plot(height ~ weight, data=Howell1,
      col=col.alpha(rangi2, 0.4))</code></pre>
-<p><img src="/post/2020-05-11-ch4-ps_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><img src="/post/Statistical-Rethinking-notes/2020-05-11-ch4-ps_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p>Then use samples from the quadratic approximate posterior of the model in (a) to superimpose on the plot:</p>
 <ol style="list-style-type: decimal">
 <li>the predicted mean height as a function of weight</li>
@@ -427,6 +427,6 @@ ggplot() +
   labs(x = &quot;Weight&quot;,
          y = &quot;Height&quot;) +
   theme(panel.grid = element_blank())</code></pre>
-<p><img src="/post/2020-05-11-ch4-ps_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p><img src="/post/Statistical-Rethinking-notes/2020-05-11-ch4-ps_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 </div>
 </div>

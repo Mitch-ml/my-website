@@ -79,9 +79,9 @@
     
     <item>
       <title>Chapter 4 Problem Set</title>
-      <link>/post/2020-05-11-ch4-ps/</link>
+      <link>/post/statistical-rethinking-notes/2020-05-11-ch4-ps/</link>
       <pubDate>Sat, 09 May 2020 00:00:00 +0000</pubDate>
-      <guid>/post/2020-05-11-ch4-ps/</guid>
+      <guid>/post/statistical-rethinking-notes/2020-05-11-ch4-ps/</guid>
       <description>
 
 
@@ -143,7 +143,7 @@ y_{i} \sim \text{Normal}(\mu, \sigma) \\
 sample_sigma &amp;lt;- runif(1e4, 0, 10)
 prior_y &amp;lt;- rnorm(1e4, sample_mu, sample_sigma)
 dens(prior_y)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-05-11-ch4-ps_files/figure-html/unnamed-chunk-1-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/Statistical-Rethinking-notes/2020-05-11-ch4-ps_files/figure-html/unnamed-chunk-1-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;m2&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;4M2&lt;/h2&gt;
@@ -195,7 +195,7 @@ sample_mu &amp;lt;- a + b*x_i
 sample_sigma &amp;lt;- runif(1e4, 0, 20)
 prior_y &amp;lt;- rnorm(1e4, sample_mu, sample_sigma)
 dens(prior_y)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-05-11-ch4-ps_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/Statistical-Rethinking-notes/2020-05-11-ch4-ps_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;For &lt;span class=&#34;math inline&#34;&gt;\(\alpha\)&lt;/span&gt; I chose a mean of 140 because we don’t know the age of the students, and this seems like a pretty safe average, additionally, a standard deviation of 20 implies that 95% of the data will lie within the range &lt;span class=&#34;math inline&#34;&gt;\(140 \pm 40\)&lt;/span&gt;. We know that most students aren’t shrinking so &lt;span class=&#34;math inline&#34;&gt;\(\beta\)&lt;/span&gt; doesn’t have to include negative values, by centering it at 4, with standard deviation of 2, we leave room for students to not grow at all, while still allowing for upwards of 8cm of growth per year which I think is adequate. &lt;span class=&#34;math inline&#34;&gt;\(\sigma\)&lt;/span&gt; was chosen to be uniformly distributed from 0 to 20 to give us a decent amount of wiggle room if needed.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;m5&#34; class=&#34;section level2&#34;&gt;
@@ -218,7 +218,7 @@ sample_mu &amp;lt;- a + b*x_i
 sample_sigma &amp;lt;- runif(1e4, 0, 10)
 prior_y &amp;lt;- rnorm(1e4, sample_mu, sample_sigma)
 dens(prior_y)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-05-11-ch4-ps_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/Statistical-Rethinking-notes/2020-05-11-ch4-ps_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;m6&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;4M6&lt;/h2&gt;
@@ -389,7 +389,7 @@ ggplot() +
   labs(x = &amp;quot;Weight&amp;quot;,
          y = &amp;quot;Height&amp;quot;) +
   theme(panel.grid = element_blank())&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-05-11-ch4-ps_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/Statistical-Rethinking-notes/2020-05-11-ch4-ps_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;c&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;(c)&lt;/h3&gt;
@@ -445,7 +445,7 @@ precis(m)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Begin with this plot:&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(height ~ weight, data=Howell1,
      col=col.alpha(rangi2, 0.4))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-05-11-ch4-ps_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/Statistical-Rethinking-notes/2020-05-11-ch4-ps_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Then use samples from the quadratic approximate posterior of the model in (a) to superimpose on the plot:&lt;/p&gt;
 &lt;ol style=&#34;list-style-type: decimal&#34;&gt;
 &lt;li&gt;the predicted mean height as a function of weight&lt;/li&gt;
@@ -497,8 +497,566 @@ ggplot() +
   labs(x = &amp;quot;Weight&amp;quot;,
          y = &amp;quot;Height&amp;quot;) +
   theme(panel.grid = element_blank())&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-05-11-ch4-ps_files/figure-html/unnamed-chunk-12-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/Statistical-Rethinking-notes/2020-05-11-ch4-ps_files/figure-html/unnamed-chunk-12-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Chapter 3 Problem Set</title>
+      <link>/post/statistical-rethinking-notes/2020-04-27-ch3-ps/</link>
+      <pubDate>Mon, 27 Apr 2020 00:00:00 +0000</pubDate>
+      <guid>/post/statistical-rethinking-notes/2020-04-27-ch3-ps/</guid>
+      <description>
+
+
+&lt;div id=&#34;disclaimer&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Disclaimer&lt;/h2&gt;
+&lt;p&gt;Below are my solutions to the end of chapter exercises in Statistical Rethinking by Richard McElreath.&lt;/p&gt;
+&lt;p&gt;These results might not be correct. If you catch any errors or mistakes please leave a comment below.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;easy.&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Easy.&lt;/h1&gt;
+&lt;p&gt;These problems use the samples from the posterior distribution for the globe tossing example. This code will give you a specific set of samples, so that you can check your answers exactly.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;p_grid &amp;lt;- seq(from = 0, to = 1, length.out = 1000)
+prior &amp;lt;- rep(1, 1000)
+likelihood &amp;lt;- dbinom(6, size = 9, prob = p_grid)
+posterior &amp;lt;- likelihood * prior
+posterior &amp;lt;- posterior/sum(posterior)
+
+set.seed(100)
+samples &amp;lt;- sample(p_grid, prob = posterior, size = 1e4, replace = TRUE)&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;e1&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;3E1&lt;/h2&gt;
+&lt;p&gt;How much posterior probability lies below p = 0.2?&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# sum(posterior[p_grid &amp;lt; 0.2])
+sum(samples &amp;lt; 0.2)/1e4&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 5e-04&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Interpretation: About 0.05% of the posterior probability is below 0.2&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;e2&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;3E2&lt;/h2&gt;
+&lt;p&gt;How much posterior probability lies above p = 0.8?&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sum(samples &amp;gt; 0.8)/1e4&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.1117&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Interpretation: About 11% of the posterior probability is above 0.8&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;e3&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;3E3&lt;/h2&gt;
+&lt;p&gt;How much posterior probability lies between p = 0.2 and p = 0.8?&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sum(samples &amp;gt; 0.2 &amp;amp; samples &amp;lt; 0.8)/1e4&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.8878&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Interpretation: About 89% of the posterior probability is between 0.2 and 0.8&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;e4&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;3E4&lt;/h2&gt;
+&lt;p&gt;20% of the posterior probability lies below which value of p?&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;quantile(samples, 0.2)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##       20% 
+## 0.5195195&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Check
+sum(samples &amp;lt; 0.5195195)/ 1e4&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.1997&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;20% of the posterior probability lies below p = 0.52&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;e5&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;3E5&lt;/h2&gt;
+&lt;p&gt;20% of the posterior probability lies above which value of p?&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;quantile(samples, 0.8)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##       80% 
+## 0.7567568&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Check
+sum(samples &amp;gt; 0.7567568)/1e4&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.1989&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;20% of the posterior probability lies above p = 0.757&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;e6&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;3E6&lt;/h2&gt;
+&lt;p&gt;Which values of p contain the narrowest interval equal to 66% of the posterior probability?&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;HPDI(samples, prob = 0.66)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##     |0.66     0.66| 
+## 0.5205205 0.7847848&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Check
+sum(samples &amp;gt; 0.52 &amp;amp; samples &amp;lt; 0.78)/1e4&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.6527&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;e7&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;3E7&lt;/h2&gt;
+&lt;p&gt;Which values of p contain 66% of the posterior probability, assuming equal posterior probabbility both below and above the interval?&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;PI(samples, prob = 0.66)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##       17%       83% 
+## 0.5005005 0.7687688&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;m1&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;3M1&lt;/h2&gt;
+&lt;p&gt;Suppose the globe tossing data had turned out to be 8 water in 15 tosses. Construct the posterior distribution, using grid approximation. Use the same flat prior as before.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;p_grid &amp;lt;- seq(from = 0, to = 1, length.out = 1000)
+prior &amp;lt;- rep(1, 1000)
+likelihood &amp;lt;- dbinom(8, size = 15, prob = p_grid)
+posterior &amp;lt;- likelihood * prior
+posterior &amp;lt;- posterior / sum(posterior)
+plot(x = p_grid, y = posterior, type = &amp;#39;l&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/Statistical-Rethinking-notes/2020-04-27-ch3-ps_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;m2&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;3M2&lt;/h2&gt;
+&lt;p&gt;Draw 10,000 samples from the grid approximation from above. Then use the samples to calculate the 90% HPDI for p.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;samples &amp;lt;- sample(p_grid, prob = posterior, size = 1e4, replace = TRUE)
+
+ans_3M2 &amp;lt;- HPDI(samples, prob = 0.90)
+ans_3M2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##      |0.9      0.9| 
+## 0.3383383 0.7317317&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;90% of the posterior probability is between p=0.33 and p=0.72&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;m3&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;3M3&lt;/h2&gt;
+&lt;p&gt;Construct a posterior predictive check for this model and data. This means simulate the distribution of samples, averaging over the posterior uncertainty in p. What is the probability of observing 8 water in 15 tosses.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;w &amp;lt;- rbinom(1e4, size = 15, prob = samples)
+simplehist(w)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/Statistical-Rethinking-notes/2020-04-27-ch3-ps_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ans_3M3 &amp;lt;- sum(w == 8)/1e4
+ans_3M3&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.1428&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# mean(w1 == 8) yields the same result&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;m4&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;3M4&lt;/h2&gt;
+&lt;p&gt;Using the posterior distribution constructed from the new (8/15) data, now calculate the probability of observing 6 water in 9 tosses.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;w &amp;lt;- rbinom(1e4, size = 9, prob = samples)
+simplehist(w)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/Statistical-Rethinking-notes/2020-04-27-ch3-ps_files/figure-html/unnamed-chunk-12-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ans_3M4 &amp;lt;- mean(w == 6)
+ans_3M4&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.1695&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;m5&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;3M5&lt;/h2&gt;
+&lt;p&gt;Start over at 3M1, but now use a prior that is zero below p = 0.5 and a constant above p = 0.5. This corresponds to prior information that a majority of the Earth’s surface is water. Repeat each problem above and compare the inferences. What difference does the better prior make? If it helps, compare inferences (unsing both priors) to the true value p = 0.7.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;p_grid &amp;lt;- seq(from = 0, to = 1, length.out = 1000)
+prior2 &amp;lt;- ifelse(p_grid &amp;lt; 0.5, 0, 1)
+likelihood &amp;lt;- dbinom(8, size = 15, prob = p_grid)
+posterior2 &amp;lt;- likelihood * prior2
+posterior2 &amp;lt;- posterior2 / sum(posterior2)
+plot(x = p_grid, y = posterior2, type = &amp;#39;l&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/Statistical-Rethinking-notes/2020-04-27-ch3-ps_files/figure-html/unnamed-chunk-13-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# 3M2
+samples2 &amp;lt;- sample(p_grid, prob = posterior2, size = 1e4, replace = TRUE)
+ans_3M52 &amp;lt;- HPDI(samples2, prob = 0.90)
+
+# 3M3
+w &amp;lt;- rbinom(1e4, size = 15, prob = samples2)
+ans_3M53 &amp;lt;- mean(w == 8)
+
+# 3M4
+w &amp;lt;- rbinom(1e4, size = 9, prob = samples2)
+ans_3M54 &amp;lt;- mean(w == 6)
+
+d &amp;lt;- data.frame(&amp;quot;Problem&amp;quot; = c(&amp;quot;HPDI lower bound&amp;quot;, &amp;quot;HPDI upper bound&amp;quot;, &amp;quot;3M3&amp;quot;, &amp;quot;3M4&amp;quot;), &amp;quot;Uniform prior&amp;quot; = c(ans_3M2[[1]], ans_3M2[[2]], ans_3M3, ans_3M4), &amp;quot;Updated prior&amp;quot; = c(ans_3M52[[1]], ans_3M52[[2]], ans_3M53, ans_3M54))
+
+knitr::kable(d)&lt;/code&gt;&lt;/pre&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th align=&#34;left&#34;&gt;Problem&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;Uniform.prior&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;Updated.prior&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;HPDI lower bound&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.3383383&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.5005005&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;HPDI upper bound&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.7317317&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.7097097&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;3M3&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.1428000&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.1592000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;3M4&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.1695000&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.2357000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div id=&#34;h1&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;3H1&lt;/h2&gt;
+&lt;p&gt;The practice problems here all use the data below. These data indicate the gender (male = 1, female = 0) of officially reported first and second born children in 100 two-child families.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;data(homeworkch3)
+boys &amp;lt;- sum(birth1) + sum(birth2)
+
+p_grid &amp;lt;- seq(from = 0 , to = 1, length.out = 1000)
+prior &amp;lt;- rep(1, 1000)
+likelihood &amp;lt;- dbinom(boys, size = 200, prob = p_grid)
+posterior &amp;lt;- likelihood * prior
+posterior &amp;lt;- posterior/sum(posterior)
+plot(x = p_grid, y = posterior, type = &amp;#39;l&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/Statistical-Rethinking-notes/2020-04-27-ch3-ps_files/figure-html/unnamed-chunk-14-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;p_grid[which.max(posterior)]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.5545546&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;h2&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;3H2&lt;/h2&gt;
+&lt;p&gt;Using the sample function, draw 10,000 random parameter values from the posterior distribution you calculated above. Use these samples to estimate the 50%, 89%, and 97% highest posterior density intervals.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;samples &amp;lt;- sample(p_grid, prob = posterior, size = 1e4, replace = TRUE)
+
+HPDI(samples, prob = 0.5)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##      |0.5      0.5| 
+## 0.5255255 0.5725726&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;HPDI(samples, prob = 0.89)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##     |0.89     0.89| 
+## 0.5015015 0.6116116&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;HPDI(samples, prob = 0.97)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##     |0.97     0.97| 
+## 0.4764765 0.6286286&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;h3&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;3H3&lt;/h2&gt;
+&lt;p&gt;Use rbinom to simulate 10,000 replicates of 200 births. You should end up with 10,000 numbers, each one a count of boys out of 200 births. Compare the distribution of predicted numbers of boys to the actual count in the data (111 boys out of 200 births). There are many good ways to visualize the simulations, but the dens command is probably the easiest way in this case. Does it look like the model fits the data well? That is, does the distribution of predictions include the actual observation as a central, likely outcome?&lt;/p&gt;
+&lt;p&gt;As we see here, the distribution seems to fit the data fairly well.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;w &amp;lt;- rbinom(1e4, size = 200, prob = samples)
+dens(w)
+abline(v = 111)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/Statistical-Rethinking-notes/2020-04-27-ch3-ps_files/figure-html/unnamed-chunk-16-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;h4&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;3H4&lt;/h2&gt;
+&lt;p&gt;Now compare 10,000 counts of boys from 100 simulated first borns only to the number of boys in the first births, birth1. How does the model look in this light?&lt;/p&gt;
+&lt;p&gt;As we can see below our model overestimates the number of boys for the first child.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;w &amp;lt;- rbinom(1e4, size = 100, prob = samples)
+dens(w)
+abline(v = sum(birth1))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/Statistical-Rethinking-notes/2020-04-27-ch3-ps_files/figure-html/unnamed-chunk-17-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;h5&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;3H5&lt;/h2&gt;
+&lt;p&gt;The model assumes that sex of first and second births are independent. To check this assumption, focus now on the second births that followed female first borns.
+1) Compare 10,000 simulated counts of boys to only those second births that followed girls.
+2) To do this correctly, you need to count the number of first borns who were girls and simulate that many births, 10,000 times.
+3) Compare the counts of boys in your simulations to the actual observed count of boys following girls. How does the model look in this light? Any guesses what is going on in these data.&lt;/p&gt;
+&lt;p&gt;Below we can see that the our model severly underfits our data, suggesting that births are probably not independent of one another.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Count the number of first borns who were girls
+births &amp;lt;- birth2[birth1 == 0]
+girl_first &amp;lt;- length(births)
+
+w &amp;lt;- rbinom(1e4, size = girl_first, prob = samples)
+dens(w)
+abline(v = sum(births))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/Statistical-Rethinking-notes/2020-04-27-ch3-ps_files/figure-html/unnamed-chunk-18-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Chapter 2 Problem Set</title>
+      <link>/post/statistical-rethinking-notes/2020-04-26-ch2-ps/</link>
+      <pubDate>Sun, 26 Apr 2020 00:00:00 +0000</pubDate>
+      <guid>/post/statistical-rethinking-notes/2020-04-26-ch2-ps/</guid>
+      <description>
+
+
+&lt;div id=&#34;r-markdown&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;R Markdown&lt;/h2&gt;
+&lt;/div&gt;
+&lt;div id=&#34;m1&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;2M1:&lt;/h2&gt;
+&lt;p&gt;First we’ll start off by defining our grid using seq(), and defining a uniform prior, just make sure the amount of times you repeat the prior is equal to the lenght.out.&lt;/p&gt;
+&lt;p&gt;Defining the likelihoods used the dbinom or density binomial distribution. We start by inputing how many observations were waters, size is equal to the total number of tosses, and prob is equal to our grid.&lt;/p&gt;
+&lt;p&gt;Comupting the posterior is the product of likelihood and prior divided by the sum of all those values.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Define the grid
+p_grid &amp;lt;- seq(from=0, to=1, length.out = 1000)
+
+# Assume a uniform prior 
+prior1 &amp;lt;- rep(1, 1000)
+
+# Get the likelihood given: 3 waters and 3 tosses
+#                           3 waters and 4 tosses
+#                           5 waters and 7 tosses
+likelihood1 &amp;lt;- dbinom(3, size=3, prob=p_grid)
+likelihood2 &amp;lt;- dbinom(3, size=4, prob=p_grid)
+likelihood3 &amp;lt;- dbinom(5, size=7, prob=p_grid)
+
+# Compute posterior
+posterior1 &amp;lt;- likelihood1 * prior1
+posterior2 &amp;lt;- likelihood2 * prior1
+posterior3 &amp;lt;- likelihood3 * prior1
+
+# Standardize
+posterior1 &amp;lt;- posterior1 / sum(posterior1)
+posterior2 &amp;lt;- posterior2 / sum(posterior2)
+posterior3 &amp;lt;- posterior3 / sum(posterior3)
+
+# Plotting the posteriors
+plot(p_grid, posterior1, type = &amp;quot;b&amp;quot;,
+     xlab = &amp;quot;probability of water&amp;quot;,
+     ylab = &amp;quot;posterior probability&amp;quot;)
+lines(p_grid, posterior2, type = &amp;quot;b&amp;quot;, col = &amp;quot;red&amp;quot;)
+lines(p_grid, posterior3, type = &amp;quot;b&amp;quot;, col = &amp;quot;blue&amp;quot;)
+legend(&amp;quot;topleft&amp;quot;, 
+       c(&amp;quot;posterior1&amp;quot;, &amp;quot;posterior2&amp;quot;, &amp;quot;posterior3&amp;quot;),
+       fill = c(&amp;quot;black&amp;quot;, &amp;quot;red&amp;quot;, &amp;quot;blue&amp;quot;))
+mtext(&amp;quot;1000 points&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/Statistical-Rethinking-notes/2020-04-26-ch2-ps_files/figure-html/unnamed-chunk-1-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;m2&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;2M2:&lt;/h2&gt;
+&lt;p&gt;This problem is identical to the one above, the only thing that’s changed is that we have changed our prior to be 0 when p &amp;lt; 0.5 and 1 otherwise. This can all be done in r using the ifelse() function.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/Statistical-Rethinking-notes/2020-04-26-ch2-ps_files/figure-html/pressure-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;m3&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;2M3:&lt;/h2&gt;
+&lt;p&gt;Since earth is 70% water then there’s only a 30% or 0.3 chance that it will land on ‘land’. Mars has a 100% or 1.0 chance of landing on ‘land’ if tossed.&lt;/p&gt;
+&lt;p&gt;Below are two identical ways of solving the problem, the second was included as it might not be as obvious how the code in the first part works for people new to r.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ways &amp;lt;- c(.3, 1)
+probability &amp;lt;- ways/sum(ways)
+probability[1]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.2307692&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Alternative way
+earth_land = 1-.7
+mars_land = 1
+probability_earth = earth_land/(earth_land + mars_land)
+probability_earth&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.2307692&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;m4&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;2M4:&lt;/h2&gt;
+&lt;p&gt;For the following set of questions I’ll be using [bb], [bw], and [ww] to refer to a card that is black on both, black on one side/ white on the other, and white on both sides respectively.&lt;/p&gt;
+&lt;p&gt;If [bb] is picked there’s a 100% or 1.0 chance that when it’s put on the table a black side is facing up.
+If [bw] is picked it’s a 50% or 0.5 chance.
+If [ww] is picked there’s a 0% chance that a black side can be facing up.&lt;/p&gt;
+&lt;p&gt;Another way of thinking about it is there are two ways a [bb] card can show a black side up, only one way a [bw] card can, and no ways for a [ww] card.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ways &amp;lt;- c(1, 0.5, 0)
+probability &amp;lt;- ways/sum(ways)
+probability[1]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.6666667&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# ways &amp;lt;- c(2, 1, 0)
+# p &amp;lt;- ways/sum(ways)
+# p[1]&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;m5&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;2M5:&lt;/h2&gt;
+&lt;p&gt;Now there is an extra [bb] card. I like thinking about it in terms of percentages, so there are two cards that have a 100% chance of showing a black side face up, everything else is the same from 2M4.&lt;/p&gt;
+&lt;p&gt;Alternatively you can think of it as two ways a [bb] card show a black side face up, one way for a [bw] card, no ways for [ww], and again two ways for the second [bb] card. Since we can pick either of the [bb] cards we add their probabilities together to get the final result.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ways &amp;lt;- c(2*1, 0.5, 0)
+probability &amp;lt;- ways/sum(ways)
+probability[1]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.8&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# ways &amp;lt;- c(2, 1, 0, 2)
+# probability &amp;lt;- ways/sum(ways)
+# sum(probability[1], probability[4])&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;m6&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;2M6:&lt;/h2&gt;
+&lt;p&gt;Now we are informed that for every way we can pull [bb] there are two ways we can pull [bw] and three ways to pull [ww]. In the previous examples we were making the implicit assumption that there were equal chances of drawing each card meaning that our prior was 1 for each card. Now we need to adjust our probability given a new prior.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# You could also use: ways &amp;lt;- c(2, 1, 0)
+ways &amp;lt;- c(1, 0.5, 0)
+prior &amp;lt;- c(1, 2, 3)
+likelihood &amp;lt;- ways * prior 
+probability &amp;lt;- likelihood/sum(likelihood)
+probability&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.5 0.5 0.0&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;m7&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;2M7:&lt;/h2&gt;
+&lt;p&gt;To solve this problem we’ll look at all the possible combinations of draws that can lead to a black side showing face up on the first draw followed by a white side showing up on the second. Since a [bb] card has two ways it can show a black side face up, I will introduce a new notation [Bb] and [bB] to represent the two different states of the same card. The same logic will be applied to [ww], [bw] need not change because there’s only one way a [bw] card can show either black or white.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;x &amp;lt;- data.frame(c(rep(&amp;quot;Bb&amp;quot;, 3), rep(&amp;quot;bB&amp;quot;, 3), c(&amp;quot;bw&amp;quot;, &amp;quot;bw&amp;quot;)), 
+                c(rep(c(&amp;quot;bw&amp;quot;, &amp;quot;Ww&amp;quot;, &amp;quot;wW&amp;quot;), 2), c(&amp;quot;Ww&amp;quot;, &amp;quot;wW&amp;quot;)))
+knitr::kable(x, align = &amp;#39;cc&amp;#39;, col.names = c(&amp;quot;First Draw&amp;quot;, &amp;quot;Second Draw&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th align=&#34;center&#34;&gt;First Draw&lt;/th&gt;
+&lt;th align=&#34;center&#34;&gt;Second Draw&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;center&#34;&gt;Bb&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;bw&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td align=&#34;center&#34;&gt;Bb&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;Ww&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;center&#34;&gt;Bb&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;wW&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td align=&#34;center&#34;&gt;bB&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;bw&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;center&#34;&gt;bB&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;Ww&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td align=&#34;center&#34;&gt;bB&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;wW&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;center&#34;&gt;bw&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;Ww&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td align=&#34;center&#34;&gt;bw&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;wW&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;From this we can see that there are six ways a [bb] card can be picked first that would satisfy our observations, and only two ways for the [bw] card to be picked first. There are still no ways a [ww] could be picked first.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# possibilities [Bb, bw], [Bb, Ww], [Bb, wW], [bw, Ww], [bw, wW]
+#               [bB, bw], [bB, Ww], [bB, wW]
+
+ways &amp;lt;- c(6, 2, 0)
+probability &amp;lt;- ways/sum(ways)
+probability[1]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.75&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;h1&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;2H1:&lt;/h2&gt;
+&lt;p&gt;The relevant information here is that the probability of a panda giving birth to twins given that it’s from species A is 10% and species B is 20%. Also, that both species of panda are equally common so. From this we know the following:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+\begin{array}{l}
+Pr(twins | A) = 0.1\\
+Pr(twins | B) = 0.2\\
+Pr(A) = Pr(B) = 0.5
+\end{array}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Using Bayes Theorem we can find the following:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+\begin{array}{l}
+Pr(A | twins) = \frac{Pr(twins | A)*Pr(A)}{Pr(twins)}\\
+Pr(A | twins) = \frac{0.1*0.5}{0.1*0.5+0.2*0.5}=\frac{1}{3}
+\end{array}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;likelihood &amp;lt;- c(0.1, 0.2)
+prior &amp;lt;- c(1,1)
+posterior &amp;lt;- likelihood * prior
+posterior &amp;lt;- posterior/sum(posterior)
+posterior[1]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.3333333&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;From this we can see that&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[Pr(B | twins) = 1 - Pr(A | twins) = \frac{2}{3}\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Now we can calculate Pr(twins)&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+\begin{array}
+Pr(twins) = Pr(twins|A)*P(A) + Pr(twins|B)*Pr(B)\\
+= 0.1*\frac{1}{3} + 0.2*\frac{2}{3}\\
+= 0.1667
+\end{array}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;0.1*posterior[1]+0.2*posterior[2]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.1666667&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;h2&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;2H2:&lt;/h2&gt;
+&lt;p&gt;We actually already computed this in our solution above:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+\begin{array}{l}
+Pr(A | twins) = \frac{Pr(twins | A)*Pr(A)}{Pr(twins)}\\
+Pr(A | twins) = \frac{0.1*0.5}{0.1*0.5+0.2*0.5}=\frac{1}{3}
+\end{array}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;posterior[1]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.3333333&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;h3&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;2H3:&lt;/h2&gt;
+&lt;p&gt;Since we know the probability of each species giving birth to twins, we can assume that the probability of giving birth to a singleton is just the complement of our previous probabilities. Therefore:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+\begin{array}{l}
+Pr(singleton|A) = 0.9\\
+Pr(singleton | B) = 0.8
+\end{array}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Since we’re assuming that the first birth was from twins, we can reuse our probabilities for A and B.&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+\begin{array}{l}
+Pr(A) = \frac{1}{3}\\
+\\
+Pr(B) = \frac{2}{3}
+\end{array}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Now we can use Bayes Theorem again to solve the problem:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+\begin{array}{c}
+Pr(A | singleton) = \frac{Pr(singleton|A)*Pr(A)}{Pr(singleton)} \\
+= \frac{0.9*\frac{1}{3}}{0.9*\frac{1}{3} + 0.8*\frac{2}{3}} \\
+= \frac{0.3}{0.3 + 0.8333} \\
+= 0.36
+\end{array}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;likelihood &amp;lt;- c(0.9, 0.8)
+prior &amp;lt;- c(1/3, 2/3)
+posterior &amp;lt;- likelihood * prior
+posterior &amp;lt;- posterior/sum(posterior)
+posterior[1]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.36&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;h4&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;2H4:&lt;/h2&gt;
+&lt;p&gt;I want to preface this solution, this question gave me some trouble and after going to check my answer I felt like there was a lack of consesus over how it should be done I’ll do my best to explain my thought process and hopefully someone will be kind enough to give me some feedback .&lt;/p&gt;
+&lt;p&gt;We know that the probability this test correctly identifies a panda from species A is 0.8, we also know that the probability this test correctly identifies a panda from species B is 0.65. I’ve included the following type error chart to help visualize the test.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/ch2_type_errors.png&#34; /&gt;&lt;!-- --&gt;&lt;/p&gt;
+&lt;p&gt;We can interpret this as&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+\begin{array}{l}
+\\
+Pr(test\space says \space A| A) = 0.8 \\
+Pr(test \space says \space B | B) = 0.65
+\end{array}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Since TP + FN = 1 and FP + TN = 1 we can see that
+&lt;span class=&#34;math display&#34;&gt;\[
+\begin{array}{l}
+\\
+Pr(test\space says \space A| B) = 0.35 \\
+Pr(test \space says \space B| A) = 0.2
+\end{array}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;I hope the chart above helps illustrate why this is the case. Now back to the question. We are first ignoring the previous information about births and computing the posterior probability that the panda is species A given the test tells us it’s species A.&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+\begin{array}{c}
+Pr(A| test \space says \space A) = \frac{Pr(test \space says \space A | A)*Pr(A)}{Pr(test \space says \space A)} \\
+= \frac{Pr(test \space says \space A | A)*Pr(A)}{Pr(test \space says \space A|A)*Pr(A) + Pr(test \space says \space A|B)*Pr(B)} \\
+= \frac{0.8*0.5}{0.8*0.5 + 0.35*0.5} \\
+= \frac{0.4}{0.575} \\
+= 0.696
+\end{array}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;likelihood &amp;lt;- c(0.8, 0.35)
+prior &amp;lt;- c(1, 1)
+posterior &amp;lt;- likelihood * prior
+posterior &amp;lt;- posterior/sum(posterior)
+posterior[1]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.6956522&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we will use the birth data&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+\begin{array}{l}
+Pr(twins | A) = 0.1\\
+Pr(twins | B) = 0.2 \\
+Pr(A|twins) = \frac{Pr(twins|A)*Pr(A)}{Pr(twins)}\\
+=\frac{0.1*0.696}{0.1*0.696 + 0.2*(1-0.696)} \\
+= 0.533
+\end{array}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;likelihood &amp;lt;- c(0.1, 0.2)
+prior &amp;lt;- c(0.696, 0.304)
+posterior &amp;lt;- likelihood * prior
+posterior &amp;lt;- posterior/sum(posterior)
+posterior[1]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.5337423&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 </description>
     </item>
@@ -1135,56 +1693,6 @@ Three
 &lt;/div&gt;
 &lt;p&gt;Supplementary notes can be added here, including 
 &lt;a href=&#34;https://sourcethemes.com/academic/docs/writing-markdown-latex/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;code and math&lt;/a&gt;.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Hello R Markdown</title>
-      <link>/post/2015-07-23-r-rmarkdown/</link>
-      <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
-      <guid>/post/2015-07-23-r-rmarkdown/</guid>
-      <description>
-
-
-&lt;div id=&#34;r-markdown&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;R Markdown&lt;/h1&gt;
-&lt;p&gt;This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see &lt;a href=&#34;http://rmarkdown.rstudio.com&#34; class=&#34;uri&#34;&gt;http://rmarkdown.rstudio.com&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;You can embed an R code chunk like this:&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;summary(cars)
-##      speed           dist       
-##  Min.   : 4.0   Min.   :  2.00  
-##  1st Qu.:12.0   1st Qu.: 26.00  
-##  Median :15.0   Median : 36.00  
-##  Mean   :15.4   Mean   : 42.98  
-##  3rd Qu.:19.0   3rd Qu.: 56.00  
-##  Max.   :25.0   Max.   :120.00
-fit &amp;lt;- lm(dist ~ speed, data = cars)
-fit
-## 
-## Call:
-## lm(formula = dist ~ speed, data = cars)
-## 
-## Coefficients:
-## (Intercept)        speed  
-##     -17.579        3.932&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;div id=&#34;including-plots&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Including Plots&lt;/h1&gt;
-&lt;p&gt;You can also embed plots. See Figure &lt;a href=&#34;#fig:pie&#34;&gt;1&lt;/a&gt; for example:&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;par(mar = c(0, 1, 0, 1))
-pie(
-  c(280, 60, 20),
-  c(&amp;#39;Sky&amp;#39;, &amp;#39;Sunny side of pyramid&amp;#39;, &amp;#39;Shady side of pyramid&amp;#39;),
-  col = c(&amp;#39;#0292D8&amp;#39;, &amp;#39;#F7EA39&amp;#39;, &amp;#39;#C4B632&amp;#39;),
-  init.angle = -50, border = NA
-)&lt;/code&gt;&lt;/pre&gt;
-&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:pie&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;/post/2015-07-23-r-rmarkdown_files/figure-html/pie-1.png&#34; alt=&#34;A fancy pie chart.&#34; width=&#34;672&#34; /&gt;
-&lt;p class=&#34;caption&#34;&gt;
-Figure 1: A fancy pie chart.
-&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
 </description>
     </item>
     
