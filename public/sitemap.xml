@@ -29,21 +29,51 @@
   
   <url>
     <loc>/tag/bayesian/</loc>
-    <lastmod>2020-05-09T00:00:00+00:00</lastmod>
+    <lastmod>2020-05-12T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/categories/</loc>
-    <lastmod>2020-05-09T00:00:00+00:00</lastmod>
+    <lastmod>2020-05-12T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/statistical-rethinking-notes/2020-05-11-ch4-ps/</loc>
-    <lastmod>2020-05-09T00:00:00+00:00</lastmod>
+    <loc>/post/statistical-rethinking-notes/2020-05-12-ch5-notes/</loc>
+    <lastmod>2020-05-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/category/notes/</loc>
+    <lastmod>2020-05-12T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/post/</loc>
+    <lastmod>2020-05-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/category/r/</loc>
+    <lastmod>2020-05-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tag/statistical-rethinking/</loc>
+    <lastmod>2020-05-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/category/statistical-rethinking/</loc>
+    <lastmod>2020-05-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2020-05-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/statistical-rethinking-ps/2020-05-11-ch4-ps/</loc>
     <lastmod>2020-05-09T00:00:00+00:00</lastmod>
   </url>
   
@@ -53,37 +83,37 @@
   </url>
   
   <url>
-    <loc>/category/r/</loc>
-    <lastmod>2020-05-09T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/tag/regression/</loc>
     <lastmod>2020-05-09T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tag/statistical-rethinking/</loc>
-    <lastmod>2020-05-09T00:00:00+00:00</lastmod>
+    <loc>/post/statistical-rethinking-notes/2020-05-01-ch4-notes/</loc>
+    <lastmod>2020-05-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/</loc>
-    <lastmod>2020-05-09T00:00:00+00:00</lastmod>
+    <loc>/tag/linear-regression/</loc>
+    <lastmod>2020-05-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/statistical-rethinking-notes/2020-04-27-ch3-ps/</loc>
+    <loc>/post/statistical-rethinking-ps/2020-04-27-ch3-ps/</loc>
     <lastmod>2020-04-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/statistical-rethinking-notes/2020-04-26-ch2-ps/</loc>
-    <lastmod>2020-04-26T00:00:00+00:00</lastmod>
+    <loc>/post/statistical-rethinking-notes/2020-04-27-ch1-3-notes/</loc>
+    <lastmod>2020-04-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/tag/grid-approximation/</loc>
+    <lastmod>2020-04-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/statistical-rethinking-ps/2020-04-26-ch2-ps/</loc>
     <lastmod>2020-04-26T00:00:00+00:00</lastmod>
   </url>
   

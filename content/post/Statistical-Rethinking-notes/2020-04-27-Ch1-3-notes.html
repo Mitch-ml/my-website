@@ -1,0 +1,167 @@
+---
+title: "Chapters 1-3 Notes"
+author: "Mitch"
+date: "2020-04-27"
+output:
+  html_document:
+categories: ["R", "Statistical Rethinking", "Notes"]
+summary: "Statistical Rethinking chapters 1-3 notes"
+tags: ["Statistical Rethinking", "bayesian", "grid approximation"]
+---
+
+
+
+<div id="grid-approximation" class="section level1">
+<h1>Grid Approximation</h1>
+<pre class="r"><code># Step 1: Define the grid, what are all the values you&#39;re going to consider
+p_grid &lt;- seq(from=0, to=1, length.out = 1000)
+
+# Step 2: Define the prior: Assume uniform and assign 1 to every value of p we&#39;re considering. We assign 1 so that the integral sums to 1
+prob_p &lt;- rep(1, 1000)
+
+# Step 3: Get the probability of the data, aka, the likelihood. 6 waters, 9 tosses
+prob_data &lt;- dbinom(6, size=9, prob=p_grid)
+
+# Step 4: Computer the posterior
+posterior &lt;- prob_data * prob_p
+
+# Step 5: Standardize the posterior
+posterior &lt;- posterior / sum(posterior)
+
+plot(p_grid, posterior, type = &quot;b&quot;,
+     xlab = &quot;probability of water&quot;,
+     ylab = &quot;posterior probability&quot;)
+mtext(&quot;1000 points&quot;)</code></pre>
+<p><img src="/post/Statistical-Rethinking-notes/2020-04-27-Ch1-3-notes_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+</div>
+<div id="quadratic-approximation" class="section level1">
+<h1>Quadratic Approximation</h1>
+<pre class="r"><code># Step 1: Find the posterior mode.
+# Step 2: Once you find the peak of the posterior, estimate the curvature near the peak
+# note map() stands for maximum a posteriori aka, the mode of the posterior
+
+library(rethinking)
+globe.qa &lt;- map(
+  alist(
+    w ~ dbinom(9,p), # binomial likelihood
+    p ~ dunif(0,1) # uniform prior
+  ),
+  data = list(w=6))
+
+# display summary of quadratic approximation
+# Interpretation: assuming the posterior is Gaussian, it is maximized at 0.67, and its
+# standard deviation is 0.16
+precis(globe.qa)</code></pre>
+<pre><code>##        mean        sd      5.5%     94.5%
+## p 0.6666665 0.1571338 0.4155363 0.9177967</code></pre>
+</div>
+<div id="sampling" class="section level1">
+<h1>Sampling</h1>
+<p>In order to pull samples we need a posterior to pull from. We’ll reuse the grid approximation from the globe tossing example.</p>
+<pre class="r"><code>p_grid &lt;- seq(0, 1, length.out = 1000)
+prior &lt;- rep(1, 1000)
+likelihood &lt;- dbinom(6, size = 9, prob = p_grid)
+posterior &lt;- likelihood * prior
+posterior &lt;- posterior/sum(posterior)</code></pre>
+<p>Now assume we want to draw 10,000 samples from this posterior</p>
+<pre class="r"><code>samples &lt;- sample(p_grid, prob = posterior, size = 1e4, replace = TRUE)
+plot(samples)</code></pre>
+<p><img src="/post/Statistical-Rethinking-notes/2020-04-27-Ch1-3-notes_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>As we can see below, the estimated density of our samples is very similar to our posterior. As we draw more samples it will get more and more similar</p>
+<pre class="r"><code>dens(samples)</code></pre>
+<p><img src="/post/Statistical-Rethinking-notes/2020-04-27-Ch1-3-notes_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<pre class="r"><code>plot(posterior)</code></pre>
+<p><img src="/post/Statistical-Rethinking-notes/2020-04-27-Ch1-3-notes_files/figure-html/unnamed-chunk-5-2.png" width="672" /></p>
+<div id="intervals-of-defined-boundary" class="section level2">
+<h2>Intervals of defined boundary</h2>
+<p>Suppose we want the probability that the proportion of water is less than 0.5.</p>
+<pre class="r"><code>sum(posterior[p_grid &lt; 0.5])</code></pre>
+<pre><code>## [1] 0.1718746</code></pre>
+<p>We can perform this same calculation using the samples from the posterior too.</p>
+<pre class="r"><code>sum(samples &lt; 0.5)/1e4</code></pre>
+<pre><code>## [1] 0.1696</code></pre>
+</div>
+<div id="intervals-of-defined-mass" class="section level2">
+<h2>Intervals of defined mass</h2>
+<p>These are usually known as confidence intervals. These intervals report two parameter values that contain between them a specified amount of posterior probability, a probability mass.</p>
+<p>If we wanted the lower 80% we could run the code below and see that posterior probability exists below a parameter value of about 0.76.</p>
+<pre class="r"><code>quantile(samples, 0.8)</code></pre>
+<pre><code>##       80% 
+## 0.7607608</code></pre>
+<p>Similarly if we wanted the middle 80% interval</p>
+<pre class="r"><code>quantile(samples, c(0.1, 0.9))</code></pre>
+<pre><code>##       10%       90% 
+## 0.4493493 0.8128128</code></pre>
+<p>However we must be careful. These intervals, which we’ll call <strong>percentile intervals (PI)</strong>, assign an equal probability mass to each tail. They do a good job of communitcating the shape of a distribution, as long as the distribution isn’t too asymetrical. The <strong>highest posterior density interval (HPDI)</strong> is the narrowest interval containing the specified probability mass.</p>
+<p>Let’s consider an example to illustrate the difference. If we toss a globe three times and it lands on water every time, we’ll see that PI excludes the most probable parameter values, near <span class="math inline">\(p = 1\)</span>.</p>
+<pre class="r"><code>p_grid &lt;- seq(0, 1, length.out = 1000)
+prior &lt;- rep(1, 1000)
+likelihood &lt;- dbinom(3, size = 3, prob = p_grid)
+posterior &lt;- likelihood * prior
+posterior &lt;- posterior/sum(posterior)
+samples &lt;- sample(p_grid, size = 1e4, replace = TRUE, prob = posterior)</code></pre>
+<p><img src="/post/Statistical-Rethinking-notes/2020-04-27-Ch1-3-notes_files/figure-html/PI%20vs%20HPDI-1.png" width="672" />
+Visually we can see that HPDI is narrower, but we can also calculate this below to see that HPDI has a width of about 0.16 in comparison to 0.22 for the percentile interval.</p>
+<pre class="r"><code>PI_interval &lt;- PI(samples, prob = 0.5)
+HPDI_interval &lt;- HPDI(samples, prob = 0.5)
+
+PI_interval[[2]] - PI_interval[[1]]</code></pre>
+<pre><code>## [1] 0.2242242</code></pre>
+<pre class="r"><code>HPDI_interval[[2]] - HPDI_interval[[1]]</code></pre>
+<pre><code>## [1] 0.1591592</code></pre>
+<p>HPDI has some advantages over the PI, but in most cases, these two types of interval are very similar. When the posterior is bell shaped, it hardly matters which type of interval you use.</p>
+<p>It’s also important to realize that HPDI does have some disadvantages. HPDI is more computationally intensive than PI and suffers from greater <em>simulation variance</em> meaning that it is sensitive to how many samples you draw from the posterior.</p>
+</div>
+<div id="point-estimates" class="section level2">
+<h2>Point Estimates</h2>
+<p>Given the entire posterior distribution, what value should you report? Let’s reuse the previous example, of observing three waters out of three tosses. We’l consider three examples.</p>
+<p>First we’ll look at the parameter value with the highest posterior probability.</p>
+<pre class="r"><code>p_grid[which.max(posterior)]</code></pre>
+<pre><code>## [1] 1</code></pre>
+<p>Or if we have samples from the posterior, we can still approximate the same point.</p>
+<pre class="r"><code># chainmode returns the estimated mode of a density computed from samples
+chainmode(samples, adj = 0.01)</code></pre>
+<pre><code>## [1] 0.9955165</code></pre>
+<p>One way we can go beyond using the entire posterior as the estimate is to choose a <strong>loss function</strong>. The important thing to understand is that different loss functions imply different point estimates.</p>
+<p>Here we see that using an absolute loss function is equivalent (up to sampling variance) to the median. The quadratic loss <span class="math inline">\((d - p)^2\)</span> is another common loss function, which leads to the posterior mean i.e. mean(samples) as the point estimate.</p>
+<pre class="r"><code>loss &lt;- sapply(p_grid, function(d) sum(posterior*abs(d-p_grid)))
+p_grid[which.min(loss)]</code></pre>
+<pre><code>## [1] 0.8408408</code></pre>
+<pre class="r"><code>median(samples)</code></pre>
+<pre><code>## [1] 0.8408408</code></pre>
+</div>
+<div id="dummy-data" class="section level2">
+<h2>Dummy Data</h2>
+<p>Bayesian models are always generative, meaning that they’re capable of simulating predictions. We call such simulated data, dummy data. If we wanted to simulate observations for our globe tossing experiment we can use the rbinom() function in r. Let’s say we want to generate 100,000 dummy observations. Notice how this is nearly identical to the analytical approach.</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">Generated</th>
+<th align="right">Analytical</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td align="right">0.08914</td>
+<td align="right">0.09</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td align="right">0.42273</td>
+<td align="right">0.42</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td align="right">0.48813</td>
+<td align="right">0.49</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="model-checking" class="section level2">
+<h2>Model Checking</h2>
+<p>Model checking means (1) ensuring the model fitting worked correctly and (2) evaluating the adequacy of a model for some purpose.</p>
+</div>
+</div>

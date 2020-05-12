@@ -5,6 +5,7 @@ date: "2020-04-27"
 output: 
   html_document:
 summary: "Statistical Rethinking chapter 3 exercises"
+categories: ["R", "Statistical Rethinking"]
 tags: ["Statistical Rethinking", "problem sets", "bayesian"]
 ---
 
@@ -96,7 +97,7 @@ likelihood &lt;- dbinom(8, size = 15, prob = p_grid)
 posterior &lt;- likelihood * prior
 posterior &lt;- posterior / sum(posterior)
 plot(x = p_grid, y = posterior, type = &#39;l&#39;)</code></pre>
-<p><img src="/post/Statistical-Rethinking-notes/2020-04-27-ch3-ps_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p><img src="/post/Statistical-Rethinking-ps/2020-04-27-ch3-ps_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 </div>
 <div id="m2" class="section level2">
 <h2>3M2</h2>
@@ -114,7 +115,7 @@ ans_3M2</code></pre>
 <p>Construct a posterior predictive check for this model and data. This means simulate the distribution of samples, averaging over the posterior uncertainty in p. What is the probability of observing 8 water in 15 tosses.</p>
 <pre class="r"><code>w &lt;- rbinom(1e4, size = 15, prob = samples)
 simplehist(w)</code></pre>
-<p><img src="/post/Statistical-Rethinking-notes/2020-04-27-ch3-ps_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><img src="/post/Statistical-Rethinking-ps/2020-04-27-ch3-ps_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <pre class="r"><code>ans_3M3 &lt;- sum(w == 8)/1e4
 ans_3M3</code></pre>
 <pre><code>## [1] 0.1428</code></pre>
@@ -125,7 +126,7 @@ ans_3M3</code></pre>
 <p>Using the posterior distribution constructed from the new (8/15) data, now calculate the probability of observing 6 water in 9 tosses.</p>
 <pre class="r"><code>w &lt;- rbinom(1e4, size = 9, prob = samples)
 simplehist(w)</code></pre>
-<p><img src="/post/Statistical-Rethinking-notes/2020-04-27-ch3-ps_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p><img src="/post/Statistical-Rethinking-ps/2020-04-27-ch3-ps_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <pre class="r"><code>ans_3M4 &lt;- mean(w == 6)
 ans_3M4</code></pre>
 <pre><code>## [1] 0.1695</code></pre>
@@ -139,7 +140,7 @@ likelihood &lt;- dbinom(8, size = 15, prob = p_grid)
 posterior2 &lt;- likelihood * prior2
 posterior2 &lt;- posterior2 / sum(posterior2)
 plot(x = p_grid, y = posterior2, type = &#39;l&#39;)</code></pre>
-<p><img src="/post/Statistical-Rethinking-notes/2020-04-27-ch3-ps_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><img src="/post/Statistical-Rethinking-ps/2020-04-27-ch3-ps_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <pre class="r"><code># 3M2
 samples2 &lt;- sample(p_grid, prob = posterior2, size = 1e4, replace = TRUE)
 ans_3M52 &lt;- HPDI(samples2, prob = 0.90)
@@ -199,7 +200,7 @@ likelihood &lt;- dbinom(boys, size = 200, prob = p_grid)
 posterior &lt;- likelihood * prior
 posterior &lt;- posterior/sum(posterior)
 plot(x = p_grid, y = posterior, type = &#39;l&#39;)</code></pre>
-<p><img src="/post/Statistical-Rethinking-notes/2020-04-27-ch3-ps_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p><img src="/post/Statistical-Rethinking-ps/2020-04-27-ch3-ps_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <pre class="r"><code>p_grid[which.max(posterior)]</code></pre>
 <pre><code>## [1] 0.5545546</code></pre>
 </div>
@@ -225,7 +226,7 @@ HPDI(samples, prob = 0.5)</code></pre>
 <pre class="r"><code>w &lt;- rbinom(1e4, size = 200, prob = samples)
 dens(w)
 abline(v = 111)</code></pre>
-<p><img src="/post/Statistical-Rethinking-notes/2020-04-27-ch3-ps_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p><img src="/post/Statistical-Rethinking-ps/2020-04-27-ch3-ps_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 </div>
 <div id="h4" class="section level2">
 <h2>3H4</h2>
@@ -234,7 +235,7 @@ abline(v = 111)</code></pre>
 <pre class="r"><code>w &lt;- rbinom(1e4, size = 100, prob = samples)
 dens(w)
 abline(v = sum(birth1))</code></pre>
-<p><img src="/post/Statistical-Rethinking-notes/2020-04-27-ch3-ps_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p><img src="/post/Statistical-Rethinking-ps/2020-04-27-ch3-ps_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 </div>
 <div id="h5" class="section level2">
 <h2>3H5</h2>
@@ -250,6 +251,6 @@ girl_first &lt;- length(births)
 w &lt;- rbinom(1e4, size = girl_first, prob = samples)
 dens(w)
 abline(v = sum(births))</code></pre>
-<p><img src="/post/Statistical-Rethinking-notes/2020-04-27-ch3-ps_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p><img src="/post/Statistical-Rethinking-ps/2020-04-27-ch3-ps_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 </div>
 </div>
