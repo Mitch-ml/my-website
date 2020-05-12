@@ -5,6 +5,7 @@ date: "2020-04-26"
 output:
         html_document:
 summary: "Statistical Rethinking chapter 2 exercises."
+categories: ["R", "Statistical Rethinking"]
 tags: ["Statistical Rethinking", "problem sets", "bayesian", "grid approximation"]
 ---
 
