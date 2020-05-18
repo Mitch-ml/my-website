@@ -47,6 +47,6 @@ I currently reside in Litchfield, CT.
 [1]: http://www.cobblehillpartners.com/home
 [2]: https://www.closedlooppartners.com/funds/closed-loop-venture-fund/
 [3]: /files/thesis.pdf
-[4]: /files/resume_2020.pdf
+[4]: /files/Resume_2020_1.pdf
 
 [^fnote1]: After graduating from St. Lawrence, I traveled out west in attempts to become a professional rock climber, spending most of my time in Squamish, BC and Bishop, CA.
