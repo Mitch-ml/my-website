@@ -74,7 +74,16 @@ $$
 Pr(\text{car is behind A | open B}) = \frac{Pr(\text{open door B | car is behind A})Pr(\text{car is behind A})}{Pr(\text{open door B})}
 $$
 
-Let's start with numerator first. Well we've alread established above that $Pr(\text{open door B | car is behind A}) = \frac{1}{2}$, and $Pr(\text{car is behind A) = \frac{1}{3}$. So now we have,
+Let's start with numerator first. Well we've alread established above that 
+$$
+\begin{array}{c}
+Pr(\text{open door B | car is behind A}) = \frac{1}{2} \\
+\text{and} \\
+Pr(\text{car is behind A}) = \frac{1}{3}
+\end{array}
+$$
+
+So now we have,
 
 $$
 Pr(\text{car is behind A | open door B}) = \frac{\frac{1}{2}*\frac{1}{3}}{Pr(\text{open door B})}
