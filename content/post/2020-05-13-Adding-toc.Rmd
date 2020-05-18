@@ -1,0 +1,101 @@
+---
+title: "Adding a table of contents"
+author: "Mitch"
+date: "2020-05-13"
+output:
+  html_notebook:
+    toc: true
+---
+
+## Adding a table of contents
+
+I am very new to building websites and while there are excellent tutorials on how to get one up and running using r (check out [Yihui's book](https://bookdown.org/yihui/blogdown/) and [this great tutorial by Annie Lyu](https://annielyu.com/2020/01/12/blogdown-website/)), something that was bugging me from an aesthetic perspective was the lack of a table of contents. I know in r markdown this is as easily obtained by adding the following:
+
+```{r}
+# ---
+# title: "My title!"
+# output:
+#   html_document:
+#     toc: true
+```
+
+However, I noticed that when trying to do the same on my academic theme from Hugo, it wasn't working. 
+
+I am currently trying to find a workaround to this. First we'll go into themes/hugo-academic/layouts/partials/docs_toc_foot.html and add the following;
+
+```{r}
+# <div class="connect-widget">
+#   <ul class="connect-links fa-ul">
+#     <li><i class="fa-li fas fa-question-circle"></i><a href="https://spectrum.chat/academic" target="_blank">Ask questions</a></li>
+#     <li><i class="fa-li fas fa-comments"></i><a href="https://github.com/gcushen/hugo-academic/issues" target="_blank">Request features</a></li>
+#     <li><i class="fa-li fas fa-bug"></i><a href="https://github.com/gcushen/hugo-academic/issues" target="_blank">Report issues</a></li>
+#   </ul>
+# </div>
+```
+
+
+And add while still in /partials/ folder we're going to create a new html file called toc.html and copy the following.
+
+```{r}
+# {{ $headers := findRE "<h[1-3].*?>(.|\n])+?</h[1-3]>" .Content }}
+# {{ $has_headers := ge (len $headers) 1 }}
+# {{ if $has_headers }}
+# <nav id="toc" data-toggle="toc">
+#   <h4 class="text-muted">Contents</h4>
+#   <ul class="nav">
+#     {{ range $i, $header := $headers }}
+#       {{ $header_level := index (findRE "[1-3]" . 1) 0 }}
+#       {{ $header_level := len (seq $header_level) }}
+# 
+#       {{ $hash := index (findRE "id=.([^\"]+)." $header 1) 0 }}
+#       {{ $hash := replace $hash "id=\"" "" }}
+#       {{ $hash := replace $hash "\"" "" }}
+# 
+#       {{ if ne $i 0 }}
+#         {{ $previous_level := index (findRE "[1-3]" (index $headers (sub $i 1)) 1) 0 }}
+#         {{ $previous_level := len (seq $previous_level) }}
+# 
+#         {{ if gt $header_level $previous_level }}
+#           {{ range seq (sub $header_level $previous_level) }}
+#           <ul class="nav">
+#           {{ end }}
+#         {{ end }}
+# 
+#         {{ if lt $header_level $previous_level }}
+#           {{ range seq (sub $previous_level $header_level) }}
+#           </li></ul></li>
+#           {{ end }}
+#         {{ end }}
+# 
+#         {{ if eq $header_level $previous_level }}
+#           </li>
+#         {{ end }}
+# 
+#         <li>
+#           <a href="#{{ $hash }}">{{ $header | plainify | safeHTML }}</a>
+# 
+#         {{ if eq $i (sub (len $headers) 1) }}
+#           {{ range seq (sub $previous_level $header_level) }}
+#           </li></ul></li>
+#           {{ end }}
+#         {{ end }}
+# 
+#       {{ else }}
+# 
+#       <li>
+#         <a href="#{{ $hash }}">{{ $header | plainify | safeHTML }}</a>
+# 
+#       {{end}}
+#     {{end}}
+# 
+#     {{ $first_level := len (seq (index (findRE "[1-3]" (index $headers 0) 1) 0)) }}
+#     {{ $last_level := len (seq (index (findRE "[1-3]" (index $headers (sub (len $headers) 1)) 1) 0)) }}
+#     {{ range seq (sub $last_level $first_level) }}
+#       </li></ul></li>
+#     {{end}}
+# 
+#   </ul>
+# </nav>
+# {{end}}
+```
+
