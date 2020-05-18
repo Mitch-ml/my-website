@@ -11,4 +11,298 @@ tags: ["Statistical Rethinking", "bayesian"]
 
 
 
+<div id="correlation" class="section level2">
+<h2>Correlation</h2>
+<p>Correlation is very common, and in large data sets, pretty much every variable is correlated to some degree. Since correlations do not indicate causal relationships, we need a way to distinguish association from evidence of causation.</p>
+<p><strong>Multivariate regression</strong> is one such tool for this and there are several reasons why they are popular.</p>
+<ol style="list-style-type: decimal">
+<li><p>They allow for “control” for <em>confounds</em>. A confound is a variable which has no real importance, but because of it’s correlation might appear important. Be careful though! Confounds can hide real important variables just as easily as they can produce false ones. <em>Simpson’s Paradox</em> found that the entire direction of an apparant association between a predictor and outcome can be reversed by considering a confound.</p></li>
+<li><p>Multiple causation. Even when confounds are absent, it is entirely possible that phenomenon may arise from multiple causes. When causation is multiple, one cause can hide another.</p></li>
+<li><p>Interactions. Even when variables are completely uncorrelated, the importance of each may still depend upon the other. For example, plants benefit from both light and water, but if either were abscent, there would be no benefit at all.</p></li>
+</ol>
+</div>
+<div id="spurious-association" class="section level2">
+<h2>Spurious association</h2>
+<p>Let’s consider divorce rates with the following linear regression model.</p>
+<p><span class="math display">\[
+\begin{array}{l}
+D_{i} \sim \text{Normal}(\mu_{i}, \sigma) \\
+\mu_{i} = \alpha + \beta_{A}A_{i} \\
+\alpha \sim \text{Normal}(10, 10) \\
+\beta_{A} \sim \text{Normal}(0, 1) \\
+\sigma \sim \text{Uniform}(0, 10)
+\end{array}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(D_{i}\)</span> is the divorse rate for State <span class="math inline">\(i\)</span>.</li>
+<li><span class="math inline">\(A_{i}\)</span> is State <span class="math inline">\(i\)</span>’s median age at marriage.</li>
+</ul>
+<pre class="r"><code>data(WaffleDivorce)
+d &lt;- WaffleDivorce
 
+# standardize predictor
+d$MedianAgeMarriage.s &lt;- (d$MedianAgeMarriage - mean(d$MedianAgeMarriage))/sd(d$MedianAgeMarriage)
+
+# fit model
+m &lt;- quap(
+  alist(
+    Divorce ~ dnorm(mu, sigma),
+    mu &lt;- alpha + beta*MedianAgeMarriage.s,
+    alpha ~ dnorm(10, 10),
+    beta ~ dnorm(0, 1),
+    sigma ~ dunif(0, 10)
+  ), data = d)
+
+precis(m)</code></pre>
+<pre><code>##            mean        sd      5.5%      94.5%
+## alpha  9.688224 0.2045084  9.361380 10.0150679
+## beta  -1.042823 0.2025347 -1.366513 -0.7191339
+## sigma  1.446395 0.1447674  1.215029  1.6777614</code></pre>
+<pre class="r"><code># sd(d$MedianAgeMarriage)
+# 1.24
+
+# compute percentile interval of mean
+MAM.seq &lt;- seq(from = -3, to = 3.5, length.out = 30)
+mu &lt;- link(m, data = data.frame(list(MedianAgeMarriage.s = MAM.seq)))
+mu.PI &lt;- apply(mu, 2, PI)
+
+# plot it all
+plot(Divorce ~ MedianAgeMarriage.s, data = d, col = rangi2)
+abline(m)
+shade(mu.PI, MAM.seq)</code></pre>
+<p><img src="/post/Statistical-Rethinking-notes/2020-05-12-ch5-notes_files/figure-html/unnamed-chunk-1-1.png" width="672" />
+From the table we can see that for each additional standard deviation of delay in marriage (1.24 years), predicts a decrease of about one divorce per thousand adults with a 89% interval from about -1.37 to -0.72. Even though the magnitude may vary a lot, we can still say that it’s reliably negative.</p>
+<pre class="r"><code>d$Marriage.s &lt;- (d$Marriage - mean(d$Marriage))/sd(d$Marriage)
+m2 &lt;- quap(
+  alist(
+    Divorce ~ dnorm(mu, sigma),
+    mu &lt;- alpha + beta*Marriage.s,
+    alpha ~ dnorm(10, 10),
+    beta ~ dnorm(0, 1),
+    sigma ~ dunif(0, 10)
+  ), data = d)
+
+precis(m2)</code></pre>
+<pre><code>##            mean        sd      5.5%     94.5%
+## alpha 9.6881748 0.2364320 9.3103108 10.066039
+## beta  0.6437544 0.2324645 0.2722313  1.015278
+## sigma 1.6722941 0.1673041 1.4049099  1.939678</code></pre>
+<pre class="r"><code># sd(d$Marriage)
+# 3.8
+
+# compute percentile interval of mean
+Marriage.seq &lt;- seq(from = -3, to = 3.5, length.out = 30)
+mu2 &lt;- link(m2, data = data.frame(list(Marriage.s = Marriage.seq)))
+mu2.PI &lt;- apply(mu2, 2, PI)
+
+# plot it all
+plot(Divorce ~ Marriage.s, data = d, col = rangi2)
+abline(m2)
+shade(mu2.PI, Marriage.seq)</code></pre>
+<p><img src="/post/Statistical-Rethinking-notes/2020-05-12-ch5-notes_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>The table output shows that for every additional standard deviation of marriage rate (3.8), there is an increase of 0.6 divorces. Looking at the plots we can see that this relationship isn’t as strong as the previous one.</p>
+<p><em>What is the predictive value of a variable, once I already know all the other predictor variables?</em></p>
+<p>Once we fit a multivariate model to predict divorce using both marriage rate and age at marriage, the model will answer the following:</p>
+<ol style="list-style-type: decimal">
+<li>After we already know marriage rate, what additional value is there in also knowing age at marriage?</li>
+<li>Afte we already know age at marriage, what additional value is there in also knowing marriage rate?</li>
+</ol>
+</div>
+<div id="multivariate-notation" class="section level2">
+<h2>Multivariate Notation</h2>
+<p>If we want a model that predicts divorce rate using bothe marriage rate and age at marriage, the methods are very similar to how we defined polynomial models before:</p>
+<ol style="list-style-type: decimal">
+<li>Select the predictor variables you want in the linear model of the mean</li>
+<li>For each predictor, make a parameter that will measure its association with the outcome</li>
+<li>Multiply the parameter by the variable and add that term to the linear model</li>
+</ol>
+<p><span class="math display">\[
+\begin{array}{lr}
+D_{i} \sim \text{Normal}(\mu_{i}, \sigma) &amp; \text{[likelihood]} \\
+\mu_{i} = \alpha + \beta_{R}R_{i} + \beta_{A}A_{i} &amp; \text{[linear model]}\\
+\alpha \sim \text{Normal}(10, 10) &amp; [\text{prior for }\alpha] \\
+\beta_{R} \sim \text{Normal}(0,1) &amp; [\text{prior for }\beta_{R}] \\
+\beta_{A} \sim \text{Normal}(0, 1) &amp; [\text{prior for }\beta_{A}] \\
+\sigma \sim \text{Uniform}(0,10) &amp; [\text{prior for }\sigma]
+\end{array}
+\]</span>
+Here, <span class="math inline">\(R\)</span>, represents the marriage rate and <span class="math inline">\(A\)</span>, the age at marriage. But what does <span class="math inline">\(\mu_{i} = \alpha + \beta_{R}R_{i} + \beta_{A}A_{i}\)</span> mean? It means the expected outcome for any State with marriage rate <span class="math inline">\(R_{i}\)</span> and meadian age at marriage <span class="math inline">\(A_{i}\)</span> is the sum of three independent terms. An easier way to interpret this would be: <em>A State’s divorce rate can be a function of its marriage rate or its median age at marriage.</em></p>
+<pre class="r"><code># Now fitting the model in R
+m &lt;- quap(
+  alist(
+    Divorce ~ dnorm(mu, sigma),
+    mu &lt;- alpha + betaR*Marriage.s + betaA*MedianAgeMarriage.s,
+    alpha ~ dnorm(10, 10),
+    betaR ~ dnorm(0, 1),
+    betaA ~ dnorm(0, 1),
+    sigma ~ dunif(0, 10)
+  ), data = d)
+
+knitr::kable(cbind(precis(m), cov2cor(vcov(m))), digits = 2)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+<th align="right">5.5%</th>
+<th align="right">94.5%</th>
+<th align="right">alpha</th>
+<th align="right">betaR</th>
+<th align="right">betaA</th>
+<th align="right">sigma</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>alpha</td>
+<td align="right">9.69</td>
+<td align="right">0.20</td>
+<td align="right">9.36</td>
+<td align="right">10.01</td>
+<td align="right">1</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td>betaR</td>
+<td align="right">-0.13</td>
+<td align="right">0.28</td>
+<td align="right">-0.58</td>
+<td align="right">0.31</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">0.69</td>
+<td align="right">0.05</td>
+</tr>
+<tr class="odd">
+<td>betaA</td>
+<td align="right">-1.13</td>
+<td align="right">0.28</td>
+<td align="right">-1.58</td>
+<td align="right">-0.69</td>
+<td align="right">0</td>
+<td align="right">0.69</td>
+<td align="right">1.00</td>
+<td align="right">0.07</td>
+</tr>
+<tr class="even">
+<td>sigma</td>
+<td align="right">1.44</td>
+<td align="right">0.14</td>
+<td align="right">1.21</td>
+<td align="right">1.67</td>
+<td align="right">0</td>
+<td align="right">0.05</td>
+<td align="right">0.07</td>
+<td align="right">1.00</td>
+</tr>
+</tbody>
+</table>
+<p>The posterior mean for marriage rate, <span class="math inline">\(\beta_{R}\)</span>, is now close to zero, with plenty of probability on both sides of zero. The posterior mean for age at marriage, <span class="math inline">\(\beta_{A}\)</span>, has actually gotten slightly farther from zero but is essentially unchanged.</p>
+<pre class="r"><code>plot(precis(m))</code></pre>
+<p><img src="/post/Statistical-Rethinking-notes/2020-05-12-ch5-notes_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>Interpretation: <em>Once we know median age at marriage for a State, there is listtle or no additional predictive power in also knowing the rate of marriage in that State.</em></p>
+</div>
+<div id="plotting-mutlivariate-posteriors" class="section level2">
+<h2>Plotting mutlivariate posteriors</h2>
+<p>Plotting multiple linear regression is difficult because it requires a lot of plots, and most do not generalize beyond linear regression. Instead, we’ll focus on three types of interpretive plots:</p>
+<ol style="list-style-type: decimal">
+<li><em>Predictor residual plots</em>. These plots show the outcome against <em>residual</em> predictor values.</li>
+<li><em>Counterfactual plots</em>. These show the implied predictions for imaginary experiments in which the different predictor variables can be changed independently of one another.</li>
+<li><em>Posterior prediction plots</em>. These show model-based predictions against raw data, or otherwise display the error in prediction.</li>
+</ol>
+<div id="predictor-residual-plots" class="section level3">
+<h3>Predictor residual plots</h3>
+<p>In our multivariate model of divorce rate, we have two predictors (1) marriage rate (Marriage.s) and (2) median age at marriage (MedianAgeMarriage.s). To compute predictor residuals for either, we just use the other predictor to model it. So for marriage rate, this is the model we need.</p>
+<p><span class="math display">\[
+\begin{array}{l}
+R_{i} \sim \text{Normal}(\mu, \sigma) \\
+\mu_{i} = \alpha + \beta A_{i} \\
+\alpha \sim \text{Normal}(0, 10) \\
+\beta \sim \text{Normal}(0,1) \\
+\sigma \sim \text{Uniform}(0,10)
+\end{array}
+\]</span></p>
+<p>As before, <span class="math inline">\(R\)</span> is marriage rate and <span class="math inline">\(A\)</span> is median age at marriage. Since we standardized both variables, we already expect the mean <span class="math inline">\(\alpha\)</span> to be around zero, which is why we’ve centered <span class="math inline">\(\alpha\)</span>’s prior there.</p>
+<pre class="r"><code>m &lt;- quap(
+  alist(
+    Marriage.s ~ dnorm(mu, sigma),
+    mu &lt;- alpha + beta*MedianAgeMarriage.s,
+    alpha ~ dnorm(0, 10),
+    beta ~ dnorm(0, 1),
+    sigma ~ dunif(0, 10)
+  ), data = d)</code></pre>
+<p>Now that we have the model, we compute the <em>residuals</em> by subtracting the observed marriage rate in each State from the predicted rate, based upon using age at marriage.</p>
+<pre class="r"><code># compute expected value
+mu &lt;- coef(m)[&#39;alpha&#39;] + coef(m)[&#39;beta&#39;]*d$MedianAgeMarriage.s
+
+# compute residual for each State
+m.resid &lt;- d$Marriage.s - mu</code></pre>
+<pre class="r"><code>d %&gt;%
+  ggplot(aes(x = MedianAgeMarriage.s, y = Marriage.s)) +
+  geom_point(size = 2, shape = 1, color = &quot;royalblue&quot;) +
+  geom_segment(aes(xend = MedianAgeMarriage.s, yend = mu), size = 1/4) +
+  geom_line(aes(y = mu)) +
+  coord_cartesian(ylim = range(d$Marriage.s)) +
+  theme_bw() +
+  theme(panel.grid = element_blank())</code></pre>
+<p><img src="/post/Statistical-Rethinking-notes/2020-05-12-ch5-notes_files/figure-html/plotting%20residuals-1.png" width="672" /></p>
+<p>From here we would say that States with a positive residual marry fast for their age of marriage, while States with negative residuals marry slow for their age of marriage.</p>
+<pre class="r"><code># make a data frame for ggplot
+r &lt;- m.resid %&gt;%
+  as.data.frame() %&gt;%
+  cbind(d)
+
+# Create a predictor residual plot
+prp1 &lt;- 
+  r %&gt;%
+  ggplot(aes(x = m.resid, y = Divorce)) +
+  geom_smooth(method = &#39;lm&#39;, formula = y ~ x,
+              fullrange = TRUE,
+              color = &quot;grey&quot;, fill = &quot;grey&quot;, 
+              alpha = 1/5, size = 1/2) +
+  geom_vline(xintercept = 0, linetype = 2, color = &quot;grey50&quot;) +
+  geom_point(size = 2, color = &quot;royalblue&quot;, alpha = 2/3) +
+  annotate(&quot;text&quot;, x = c(-0.35, 0.35), y = 14.1, label = c(&quot;slower&quot;, &quot;faster&quot;)) +
+  scale_x_continuous(&quot;Marriage rate residuals&quot;, limits = c(-2, 2)) +
+  coord_cartesian(xlim = range(m.resid),
+                  ylim = c(6, 14.1)) +
+  theme_bw() +
+  theme(panel.grid = element_blank())</code></pre>
+<p><img src="/post/Statistical-Rethinking-notes/2020-05-12-ch5-notes_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>Interpretation: On the left we see that States with fast marriage rates for their median age of marriage have about the same divorce rates as States with slow marriage rates. On the right we see that States with an older median age of marriage for their marriage rate have lower divorce rates than States with a younger median age of marriage.</p>
+<p>This is all a visual representation of what we saw when we made our multivariate model above, the slope of the regression lines are identical.</p>
+</div>
+<div id="counterfactual-plots" class="section level3">
+<h3>Counterfactual plots</h3>
+<p>These plots display the implied predicitions of the model. They are called counterfactual, because they can be used to visualize unobserved or even impossible combinations of predictor variables, such as a very high median age of marriage and very high marriage rate. The simplest use case is to see how predictions change as we modify only one predictor at a time. This will help us understand the implications of the model.</p>
+<pre class="r"><code># prepare new counterfactual data
+A.avg &lt;- mean(d$MedianAgeMarriage.s)
+R.seq &lt;- seq(from = -3, to = 3, length.out = 30)
+pred.data &lt;- data.frame(
+  Marriage.s = R.seq,
+  MedianAgeMarriage.s = A.avg
+)
+
+# compute counterfactual mean divorce (mu)
+
+m &lt;- map(
+    alist(
+        Divorce ~ dnorm(mu, sigma),
+        mu &lt;- alpha + betaR*Marriage.s + betaA*MedianAgeMarriage.s ,
+        alpha ~ dnorm( 10 , 10 ) ,
+        betaR ~ dnorm( 0 , 1 ) ,
+        betaA ~ dnorm( 0 , 1 ) ,
+        sigma ~ dunif( 0 , 10 )
+), data = d )
+
+mu &lt;- link(m, data = pred.data)
+mu.mean &lt;- apply(mu, 2, mean)
+mu.PI &lt;- apply(mu, 2, PI)
+
+# simulate counterfactual divorce outcomes
+R.sim &lt;- sim(m, data = pred.data, n = 1e4)</code></pre>
+</div>
+</div>
