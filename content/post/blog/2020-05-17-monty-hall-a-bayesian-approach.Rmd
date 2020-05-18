@@ -17,13 +17,13 @@ image:
 projects: []
 ---
 
-I remember watching the movie 21 growing up and being completely stunned by one of the opening scenes. The protagonist, Ben, is given a problem - the gameshow problem as they call it in the movie. Here's how the game works, Ben plays the role of a game show contestant, presented in front of him are three doors A, B, and C. He is told the behind two of the doors are goats, but behind one of the doors is a fancy sports car, and if he guesses the door with the car he gets to keep it! Ben chooses door A, but now comes the twist, before it is revealed what is behind Ben's door, the gameshow host reveals that behind door B is a goat. Now the host asks Ben if he wants to switch to door C. What would you do in this situation? 
+I remember watching the movie 21 growing up and being completely stunned by one of the opening scenes. The protagonist, Ben, is given a problem - the gameshow problem as they call it in the movie. Here's how the game works, Ben plays the role of a game show contestant, presented in front of him are three doors A, B, and C. He is told that behind two of the doors are goats, but behind one of the doors is a fancy sports car, and if he guesses the door with the car he gets to keep it! Ben chooses door A, but now comes the twist, before it is revealed what is behind Ben's door, the gameshow host reveals that behind door B is a goat. Now the host asks Ben if he wants to switch to door C. What would you do in this situation? 
 
 In the movie, the Ben, instantly accepts the option to switch, claiming he now gets better odds from switching. But why? There was seemingly a one in three chance of picking the car in the beggining - what changed? To quote Ben, everything.
 
 In the movie 21, this was called the game show problem, but it is perhaps known better as the Monty Hall problem, and it actually has quite an interesting history. It gained notoriety after a newspaper columnist Marilyn Vos Savant posed the question in her column, "Ask Marilyn". Vos Savant claimed that switching would give a $\frac{2}{3}$ chance of getting the car, whereas staying with the same choice yielded only $\frac{1}{3}$ chance.
 
-This was very controversial at the time, many readers refused to believe that switching changed the odds. Nearly 1,000 people with PhDs wrote in claiming that vos Savant was wrong. Even my favorite mathematician, Paul Erdős, one of the most prolific mathematicians in history, remained unconvinced until he was shown a computer simulation. Suffice it to say, this is an unintuitive result, so don't despair if you thought that there was no diffence - you're in good company. I think one of the easiest ways to understand why the odds change is through using bayes theorem.
+This was very controversial at the time, many readers refused to believe that switching changed the odds. Nearly 1,000 people with PhDs wrote in claiming that vos Savant was wrong. Even my favorite mathematician, Paul Erdős, one of the most prolific mathematicians in history, remained unconvinced until he was shown a computer simulation. Suffice it to say, this is an unintuitive result, so don't despair if you thought that there was no difference - you're in good company. I think one of the easiest ways to understand why the odds change is through using Bayes' theorem
 
 Let's start by breaking down this problem to it's basics, and to steal some terminology from Richard McElreath, look at the garden of forking data, which is to say, all the possible outcomes.
 
@@ -64,7 +64,7 @@ Pr(\text{open door C | car is behind C}) = 0 \\
 \end{array}
 $$
 
-With that, we can now move on to using Bayes theorem to see whether or not we should switch doors. Recall that the general form of bayes theorem states:
+With that, we can now move on to using Bayes theorem to see whether or not we should switch doors. Recall that the general form of Bayes theorem states:
 $$
 Pr(A|B) = \frac{Pr(B|A)Pr(A)}{Pr(B)}
 $$
