@@ -3,7 +3,8 @@ title: "Chapter 5 Notes"
 author: "Mitch"
 date: "2020-05-12"
 output:
-  html_document:
+  html_page:
+    toc: true
 categories: ["R", "Statistical Rethinking", "Notes"]
 summary: "Statistical Rethinking chapter 5 notes"
 tags: ["Statistical Rethinking", "bayesian"]
@@ -16,6 +17,8 @@ library(magrittr)
 library(ggplot2)
 # library(tibble)
 library(gridExtra)
+library(ggdag)
+theme_set(theme_dag())
 set.seed(1959)
 ```
 
@@ -105,7 +108,7 @@ abline(m2)
 shade(mu2.PI, Marriage.seq)
 ```
 
-The table output shows that for every additional standard deviation of marriage rate (3.8), there is an increase of 0.6 divorces. Looking at the plots we can see that this relationship isn't as strong as the previous one. 
+The table output shows that for every additional standard deviation of marriage rate (3.8), there is an increase of 0.6 divorces. Looking at the plot we can see that this relationship isn't as strong as the previous one. 
 
 *What is the predictive value of a variable, once I already know all the other predictor variables?*
 
@@ -116,7 +119,7 @@ Once we fit a multivariate model to predict divorce using both marriage rate and
 
 ## Multivariate Notation
 
-If we want a model that predicts divorce rate using bothe marriage rate and age at marriage, the methods are very similar to how we defined polynomial models before:
+If we want a model that predicts divorce rate using both marriage rate and age at marriage, the methods are very similar to how we defined polynomial models before:
 
 1. Select the predictor variables you want in the linear model of the mean
 2. For each predictor, make a parameter that will measure its association with the outcome
@@ -155,12 +158,12 @@ The posterior mean for marriage rate, $\beta_{R}$, is now close to zero, with pl
 plot(precis(m))
 ```
 
-Interpretation: *Once we know median age at marriage for a State, there is listtle or no additional predictive power in also knowing the rate of marriage in that State.*
+Interpretation: *Once we know median age at marriage for a State, there is little or no additional predictive power in also knowing the rate of marriage in that State.*
 
 ## Plotting mutlivariate posteriors
 Plotting multiple linear regression is difficult because it requires a lot of plots, and most do not generalize beyond linear regression. Instead, we'll focus on three types of interpretive plots:
 
-1. *Predictor residual plots*. These plots show the outcome against *residual* predictor values.
+1. *Predictor residual plots*. These plots show the outcome against *residual* predictor values. It's probably not recommended to use this method moving forward, however, it's a good way to visualize what the multivariate regression is doing underneath the hood. 
 2. *Counterfactual plots*. These show the implied predictions for imaginary experiments in which the different predictor variables can be changed independently of one another.
 3. *Posterior prediction plots*. These show model-based predictions against raw data, or otherwise display the error in prediction.
 
@@ -295,6 +298,23 @@ Interpretation: On the left we see that States with fast marriage rates for thei
 
 This is all a visual representation of what we saw when we made our multivariate model above, the slope of the regression lines are identical. 
 
+```{r, out.width="450px"}
+dagify(D ~ A + M,
+       M ~ A,
+       labels = c("D" = "Divorce",
+                  "A" = "Age of marriage",
+                  "M" = "Marriage rate"),
+
+       coords = list(x = c(A = 0, D = 1, M = 2),
+                     y = c(A = 1, D = 0, M = 1))) %>%
+  ggdag(use_labels = "label") #
+
+       # labels = c("Divorce" = "Divorce",
+       #            "A" = "Age of marriage",
+       #            "M" = "Marriage rate"),
+```
+
+
 ### Counterfactual plots
 These plots display the implied predicitions of the model. They are called counterfactual, because they can be used to visualize unobserved or even impossible combinations of predictor variables, such as a very high median age of marriage and very high marriage rate. The simplest use case is to see how predictions change as we modify only one predictor at a time. This will help us understand the implications of the model.
 
@@ -302,6 +322,10 @@ These plots display the implied predicitions of the model. They are called count
 # prepare new counterfactual data
 A.avg <- mean(d$MedianAgeMarriage.s)
 R.seq <- seq(from = -3, to = 3, length.out = 30)
+pred.data1 <- data.frame(
+  Marriage.s = R.seq,
+  MedianAgeMarriage.s = A.avg
+)
 pred.data <- data.frame(
   Marriage.s = R.seq,
   MedianAgeMarriage.s = A.avg
@@ -325,7 +349,39 @@ mu.PI <- apply(mu, 2, PI)
 
 # simulate counterfactual divorce outcomes
 R.sim <- sim(m, data = pred.data, n = 1e4)
+R.PI <- apply(R.sim, 2, PI)
+
+# display predictions, hiding raw data with type = 'n'
+plot(Divorce ~ Marriage.s, data = d, type = "n")
+mtext("MedianAgeMarriage.s = 0")
+lines(R.seq, mu.mean)
+shade(mu.PI, R.seq)
+shade(R.PI, R.seq)
 ```
+
+```{r, echo=FALSE}
+R.avg <- mean(d$Marriage.s)
+A.seq <- seq(from = -3, to = 3.5, length.out = 30)
+pred.data2 <- data.frame(
+  Marriage.s = R.avg,
+  MedianAgeMarriage.s = A.seq
+)
+
+mu <- link(m, data = pred.data2)
+mu.mean <- apply(mu, 2, mean)
+mu.PI <- apply(mu, 2, PI)
+
+A.sim <- sim(m, data = pred.data2, n = 1e4)
+A.PI <- apply(A.sim, 2, PI)
+
+plot(Divorce ~ MedianAgeMarriage.s, data = d, type = "n")
+mtext("Marriage.s = 0")
+lines(A.seq, mu.mean)
+shade(mu.PI, A.seq)
+shade(A.PI, A.seq)
+```
+
+
 
 
 
