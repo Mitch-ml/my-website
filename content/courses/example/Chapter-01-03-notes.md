@@ -237,11 +237,11 @@ median(samples)
 ## Dummy Data
 Bayesian models are always generative, meaning that they're capable of simulating predictions. We call such simulated data, dummy data. If we wanted to simulate observations for our globe tossing experiment we can use the rbinom() function in r. Let's say we want to generate 100,000 dummy observations. Notice how this is nearly identical to the analytical approach.
 
-      Generated   Analytical
----  ----------  -----------
-0       0.09076         0.09
-1       0.42008         0.42
-2       0.48916         0.49
+|    |  Generated |  Analytical|
+|--- | ---------- | -----------|
+|0   |    0.09076 |        0.09|
+|1   |    0.42008 |        0.42|
+|2   |    0.48916 |        0.49|
 
 ## Model Checking
 Model checking means (1) ensuring the model fitting worked correctly and (2) evaluating the adequacy of a model for some purpose.
