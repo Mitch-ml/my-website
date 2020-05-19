@@ -156,12 +156,32 @@ p_grid[which.min(loss)]
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;dummy-data&#34;&gt;Dummy Data&lt;/h2&gt;
 &lt;p&gt;Bayesian models are always generative, meaning that they&amp;rsquo;re capable of simulating predictions. We call such simulated data, dummy data. If we wanted to simulate observations for our globe tossing experiment we can use the rbinom() function in r. Let&amp;rsquo;s say we want to generate 100,000 dummy observations. Notice how this is nearly identical to the analytical approach.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;  Generated   Analytical
-&lt;/code&gt;&lt;/pre&gt;
-&lt;hr&gt;
-&lt;p&gt;0       0.09076         0.09
-1       0.42008         0.42
-2       0.48916         0.49&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;Generated&lt;/th&gt;
+&lt;th&gt;Analytical&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;0&lt;/td&gt;
+&lt;td&gt;0.09076&lt;/td&gt;
+&lt;td&gt;0.09&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;0.42008&lt;/td&gt;
+&lt;td&gt;0.42&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;td&gt;0.48916&lt;/td&gt;
+&lt;td&gt;0.49&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 &lt;h2 id=&#34;model-checking&#34;&gt;Model Checking&lt;/h2&gt;
 &lt;p&gt;Model checking means (1) ensuring the model fitting worked correctly and (2) evaluating the adequacy of a model for some purpose.&lt;/p&gt;
 </description>
@@ -211,10 +231,10 @@ legend(&amp;quot;topleft&amp;quot;,
        fill = c(&amp;quot;black&amp;quot;, &amp;quot;red&amp;quot;, &amp;quot;blue&amp;quot;))
 mtext(&amp;quot;1000 points&amp;quot;)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;Chapter_02_files/figure-html/unnamed-chunk-1-1.png&#34; alt=&#34;&#34;&gt;&lt;!-- --&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/statistical-rethinking/ps/Chapter_02_files/figure-html/unnamed-chunk-1-1.png&#34; alt=&#34;&#34;&gt;&lt;!-- --&gt;&lt;/p&gt;
 &lt;h2 id=&#34;2m2&#34;&gt;2M2&lt;/h2&gt;
 &lt;p&gt;This problem is identical to the one above, the only thing that&amp;rsquo;s changed is that we have changed our prior to be 0 when p &amp;lt; 0.5 and 1 otherwise. This can all be done in r using the ifelse() function.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;Chapter_02_files/figure-html/pressure-1.png&#34; alt=&#34;&#34;&gt;&lt;!-- --&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/statistical-rethinking/ps/Chapter_02_files/figure-html/pressure-1.png&#34; alt=&#34;&#34;&gt;&lt;!-- --&gt;&lt;/p&gt;
 &lt;h2 id=&#34;2m3&#34;&gt;2M3&lt;/h2&gt;
 &lt;p&gt;Since earth is 70% water then there&amp;rsquo;s only a 30% or 0.3 chance that it will land on &amp;lsquo;land&amp;rsquo;. Mars has a 100% or 1.0 chance of landing on &amp;lsquo;land&amp;rsquo; if tossed.&lt;/p&gt;
 &lt;p&gt;Below are two identical ways of solving the problem, the second was included as it might not be as obvious how the code in the first part works for people new to r.&lt;/p&gt;
