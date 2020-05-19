@@ -63,13 +63,13 @@ legend("topleft",
 mtext("1000 points")
 ```
 
-![](Chapter_02_files/figure-html/unnamed-chunk-1-1.png)<!-- -->
+![](/img/statistical-rethinking/ps/Chapter_02_files/figure-html/unnamed-chunk-1-1.png)<!-- -->
 
 
 ## 2M2
 This problem is identical to the one above, the only thing that's changed is that we have changed our prior to be 0 when p < 0.5 and 1 otherwise. This can all be done in r using the ifelse() function.
 
-![](Chapter_02_files/figure-html/pressure-1.png)<!-- -->
+![](/img/statistical-rethinking/ps/Chapter_02_files/figure-html/pressure-1.png)<!-- -->
 
 
 ## 2M3
