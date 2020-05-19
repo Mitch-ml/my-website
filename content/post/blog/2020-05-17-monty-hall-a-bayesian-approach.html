@@ -26,6 +26,7 @@ projects: []
 <p>Let’s start by breaking down this problem to it’s basics, and to steal some terminology from Richard McElreath, look at the garden of forking data, which is to say, all the possible outcomes.</p>
 <p>Suppose we chose door A, the game show host knows what’s behind each door, so he’s not going to reveal the door with the car behind it. Therefore, we know the following:
 <span class="math display">\[
+\small
 \begin{array}{l}
 Pr(\text{open door B | car is behind B}) = 0 \\
 Pr(\text{open door C | car is behind C}) = 0
@@ -33,6 +34,7 @@ Pr(\text{open door C | car is behind C}) = 0
 \]</span></p>
 <p>We also know that if there’s a goat behind our door, door A, then the gameshow host only has one option to pick the other door with a goat. This is because he can’t choose our door, and he’s not going to open the door with the car in it.
 <span class="math display">\[
+\small
 \begin{array}{l}
 Pr(\text{open door B | car is behind C}) = 1 \\
 Pr(\text{open door C | car is behind B}) = 1
@@ -40,6 +42,7 @@ Pr(\text{open door C | car is behind B}) = 1
 \]</span></p>
 <p>Lastly, if the car is behind door A, then it doesn’t matter which door the host chooses, so we can say that:
 <span class="math display">\[
+\small
 \begin{array}{l}
 Pr(\text{open door B | car is behind A}) = \frac{1}{2} \\
 Pr(\text{open door C | car is behind A}) = \frac{1}{2}
@@ -47,6 +50,7 @@ Pr(\text{open door C | car is behind A}) = \frac{1}{2}
 \]</span></p>
 <p>Now we have all the information we need to solve this problem, I’m going to put everything we just worked on down below in a slightly different order, hopefully this will make it easier to visualize that we’ve covered all the possible outcomes.
 <span class="math display">\[
+\small
 \begin{array}{l}
 Pr(\text{open door B | car is behind A}) = \frac{1}{2} \\
 Pr(\text{open door B | car is behind B}) = 0 \\
@@ -58,14 +62,17 @@ Pr(\text{open door C | car is behind C}) = 0 \\
 \]</span></p>
 <p>With that, we can now move on to using Bayes theorem to see whether or not we should switch doors. Recall that the general form of Bayes theorem states:
 <span class="math display">\[
+\small
 Pr(A|B) = \frac{Pr(B|A)Pr(A)}{Pr(B)}
 \]</span></p>
 <p>Repurposing it for our problem here we have:
 <span class="math display">\[
+\small
 Pr(\text{car is behind A | open B}) = \frac{Pr(\text{open door B | car is behind A})Pr(\text{car is behind A})}{Pr(\text{open door B})}
 \]</span></p>
 <p>Let’s start with numerator first. Well we’ve alread established above that
 <span class="math display">\[
+\small
 \begin{array}{c}
 Pr(\text{open door B | car is behind A}) = \frac{1}{2} \\
 \text{and} \\
@@ -74,10 +81,12 @@ Pr(\text{car is behind A}) = \frac{1}{3}
 \]</span></p>
 <p>So now we have,</p>
 <p><span class="math display">\[
+\small
 Pr(\text{car is behind A | open door B}) = \frac{\frac{1}{2}*\frac{1}{3}}{Pr(\text{open door B})}
 \]</span></p>
 <p>Now onto the denumerator, <span class="math inline">\(Pr(\text{open door B})\)</span>, is equal to the sum of all the possible ways that our gameshow host opens up door B, let’s take a look.</p>
 <p><span class="math display">\[
+\small
 \begin{array}{r}
 Pr(\text{open door B}) = Pr(\text{open door B | car is behind A})Pr(\text{car is behind A}) \\ 
 + Pr(\text{open door B | car is behind B})Pr(\text{car is behind B}) \\
@@ -89,14 +98,17 @@ Pr(\text{open door B}) = Pr(\text{open door B | car is behind A})Pr(\text{car is
 \]</span></p>
 <p>Now we can return to our initial equation and see that.
 <span class="math display">\[
+\small
 Pr(\text{car is behind A | open door B}) = \frac{\frac{1}{6}}{\frac{1}{2}} = \frac{1}{3}
 \]</span></p>
 <p>So staying with door A only yields a 33.33% chance of having a car behind it. This means that there’s a 66.66% chance that the car is behind door C. Don’t take my word for it though, let’s calculate it out. We’ll use the same framework as before, only this time we’ll be calculating:</p>
 <p><span class="math display">\[
+\small
 Pr(\text{car is behind C | open door B}) = \frac{Pr(\text{open door B | car is behind C})Pr(\text{car is behind C})}{Pr(\text{open door B})}
 \]</span>
 As we can see the denominator is the same as before, so that will be <span class="math inline">\(\frac{1}{2}\)</span>. However, the numerator is now equal to <span class="math inline">\(1 * \frac{1}{3} = \frac{1}{3}\)</span>. Therefore we have
 <span class="math display">\[
+\small
 Pr(\text{car is behind C | open door B}) = \frac{\frac{1}{3}}{\frac{1}{2}} = \frac{2}{3}
 \]</span></p>
 <p>There you have it, switching doors doubles your chances of getting a car! I think this is a very fun way of understanding a problem that stumped many a mathematicians for quite some time. I hope you enjoyed!</p>
