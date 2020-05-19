@@ -3,7 +3,8 @@ title: "Chapter 5 Notes"
 author: "Mitch"
 date: "2020-05-12"
 output:
-  html_document:
+  html_page:
+    toc: true
 categories: ["R", "Statistical Rethinking", "Notes"]
 summary: "Statistical Rethinking chapter 5 notes"
 tags: ["Statistical Rethinking", "bayesian"]
@@ -100,7 +101,7 @@ plot(Divorce ~ Marriage.s, data = d, col = rangi2)
 abline(m2)
 shade(mu2.PI, Marriage.seq)</code></pre>
 <p><img src="/post/Statistical-Rethinking-notes/2020-05-12-ch5-notes_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
-<p>The table output shows that for every additional standard deviation of marriage rate (3.8), there is an increase of 0.6 divorces. Looking at the plots we can see that this relationship isn’t as strong as the previous one.</p>
+<p>The table output shows that for every additional standard deviation of marriage rate (3.8), there is an increase of 0.6 divorces. Looking at the plot we can see that this relationship isn’t as strong as the previous one.</p>
 <p><em>What is the predictive value of a variable, once I already know all the other predictor variables?</em></p>
 <p>Once we fit a multivariate model to predict divorce using both marriage rate and age at marriage, the model will answer the following:</p>
 <ol style="list-style-type: decimal">
@@ -110,7 +111,7 @@ shade(mu2.PI, Marriage.seq)</code></pre>
 </div>
 <div id="multivariate-notation" class="section level2">
 <h2>Multivariate Notation</h2>
-<p>If we want a model that predicts divorce rate using bothe marriage rate and age at marriage, the methods are very similar to how we defined polynomial models before:</p>
+<p>If we want a model that predicts divorce rate using both marriage rate and age at marriage, the methods are very similar to how we defined polynomial models before:</p>
 <ol style="list-style-type: decimal">
 <li>Select the predictor variables you want in the linear model of the mean</li>
 <li>For each predictor, make a parameter that will measure its association with the outcome</li>
@@ -203,13 +204,13 @@ knitr::kable(cbind(precis(m), cov2cor(vcov(m))), digits = 2)</code></pre>
 <p>The posterior mean for marriage rate, <span class="math inline">\(\beta_{R}\)</span>, is now close to zero, with plenty of probability on both sides of zero. The posterior mean for age at marriage, <span class="math inline">\(\beta_{A}\)</span>, has actually gotten slightly farther from zero but is essentially unchanged.</p>
 <pre class="r"><code>plot(precis(m))</code></pre>
 <p><img src="/post/Statistical-Rethinking-notes/2020-05-12-ch5-notes_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
-<p>Interpretation: <em>Once we know median age at marriage for a State, there is listtle or no additional predictive power in also knowing the rate of marriage in that State.</em></p>
+<p>Interpretation: <em>Once we know median age at marriage for a State, there is little or no additional predictive power in also knowing the rate of marriage in that State.</em></p>
 </div>
 <div id="plotting-mutlivariate-posteriors" class="section level2">
 <h2>Plotting mutlivariate posteriors</h2>
 <p>Plotting multiple linear regression is difficult because it requires a lot of plots, and most do not generalize beyond linear regression. Instead, we’ll focus on three types of interpretive plots:</p>
 <ol style="list-style-type: decimal">
-<li><em>Predictor residual plots</em>. These plots show the outcome against <em>residual</em> predictor values.</li>
+<li><em>Predictor residual plots</em>. These plots show the outcome against <em>residual</em> predictor values. It’s probably not recommended to use this method moving forward, however, it’s a good way to visualize what the multivariate regression is doing underneath the hood.</li>
 <li><em>Counterfactual plots</em>. These show the implied predictions for imaginary experiments in which the different predictor variables can be changed independently of one another.</li>
 <li><em>Posterior prediction plots</em>. These show model-based predictions against raw data, or otherwise display the error in prediction.</li>
 </ol>
@@ -274,6 +275,19 @@ prp1 &lt;-
 <p><img src="/post/Statistical-Rethinking-notes/2020-05-12-ch5-notes_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <p>Interpretation: On the left we see that States with fast marriage rates for their median age of marriage have about the same divorce rates as States with slow marriage rates. On the right we see that States with an older median age of marriage for their marriage rate have lower divorce rates than States with a younger median age of marriage.</p>
 <p>This is all a visual representation of what we saw when we made our multivariate model above, the slope of the regression lines are identical.</p>
+<pre class="r"><code>dagify(D ~ A + M,
+       M ~ A,
+       labels = c(&quot;D&quot; = &quot;Divorce&quot;,
+                  &quot;A&quot; = &quot;Age of marriage&quot;,
+                  &quot;M&quot; = &quot;Marriage rate&quot;),
+
+       coords = list(x = c(A = 0, D = 1, M = 2),
+                     y = c(A = 1, D = 0, M = 1))) %&gt;%
+  ggdag(use_labels = &quot;label&quot;) #</code></pre>
+<p><img src="/post/Statistical-Rethinking-notes/2020-05-12-ch5-notes_files/figure-html/unnamed-chunk-8-1.png" width="450px" /></p>
+<pre class="r"><code>       # labels = c(&quot;Divorce&quot; = &quot;Divorce&quot;,
+       #            &quot;A&quot; = &quot;Age of marriage&quot;,
+       #            &quot;M&quot; = &quot;Marriage rate&quot;),</code></pre>
 </div>
 <div id="counterfactual-plots" class="section level3">
 <h3>Counterfactual plots</h3>
@@ -281,6 +295,10 @@ prp1 &lt;-
 <pre class="r"><code># prepare new counterfactual data
 A.avg &lt;- mean(d$MedianAgeMarriage.s)
 R.seq &lt;- seq(from = -3, to = 3, length.out = 30)
+pred.data1 &lt;- data.frame(
+  Marriage.s = R.seq,
+  MedianAgeMarriage.s = A.avg
+)
 pred.data &lt;- data.frame(
   Marriage.s = R.seq,
   MedianAgeMarriage.s = A.avg
@@ -303,6 +321,16 @@ mu.mean &lt;- apply(mu, 2, mean)
 mu.PI &lt;- apply(mu, 2, PI)
 
 # simulate counterfactual divorce outcomes
-R.sim &lt;- sim(m, data = pred.data, n = 1e4)</code></pre>
+R.sim &lt;- sim(m, data = pred.data, n = 1e4)
+R.PI &lt;- apply(R.sim, 2, PI)
+
+# display predictions, hiding raw data with type = &#39;n&#39;
+plot(Divorce ~ Marriage.s, data = d, type = &quot;n&quot;)
+mtext(&quot;MedianAgeMarriage.s = 0&quot;)
+lines(R.seq, mu.mean)
+shade(mu.PI, R.seq)
+shade(R.PI, R.seq)</code></pre>
+<p><img src="/post/Statistical-Rethinking-notes/2020-05-12-ch5-notes_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p><img src="/post/Statistical-Rethinking-notes/2020-05-12-ch5-notes_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 </div>
 </div>
