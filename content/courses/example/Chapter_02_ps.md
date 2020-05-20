@@ -210,14 +210,20 @@ probability[1]
 ## 2H1
 The relevant information here is that the probability of a panda giving birth to twins given that it's from species A is 10% and species B is 20%. Also, that both species of panda are equally common so. From this we know the following:
 
-$$Pr(twins | A) = 0.1\\
-Pr(twins | B) = 0.2\\
-Pr(A) = Pr(B) = 0.5$$
+$$ \begin{array}{l}
+Pr(twins | A) = 0.1\\\\
+Pr(twins | B) = 0.2\\\\
+Pr(A) = Pr(B) = 0.5
+\end{array}$$
 
 Using Bayes Theorem we can find the following:
 
-$$Pr(A | twins) = \frac{Pr(twins | A)*Pr(A)}{Pr(twins)}\\
-Pr(A | twins) = \frac{0.1*0.5}{0.1*0.5+0.2*0.5}=\frac{1}{3}$$
+$$ \small \begin{align}
+Pr(A | twins) & = \frac{Pr(twins | A)*Pr(A)}{Pr(twins)} \\\\
+Pr(A | twins) & = \frac{0.1 \times 0.5}{0.1 \times 0.5 + 0.2 \times 0.5} \\\\
+& =\frac{0.05}{.15} \\\\
+& =\frac{1}{3}
+\end{align}$$
 
 
 ```r
@@ -238,9 +244,13 @@ $$Pr(B | twins) = 1 - Pr(A | twins) = \frac{2}{3}$$
 
 Now we can calculate Pr(twins)
 
-$$Pr(twins) = Pr(twins|A)*P(A) + Pr(twins|B)*Pr(B)\\
-= 0.1*\frac{1}{3} + 0.2*\frac{2}{3}\\
-= 0.1667$$
+$$
+\begin{aligned}
+Pr(twins) & = Pr(twins | A)Pr(A) + Pr(twins | B)Pr(B) \\\\
+& = 0.1 \times \frac{1}{3} + 0.2 \times \frac{2}{3} \\\\
+& = 0.1667
+\end{aligned}
+$$
 
 
 ```r
@@ -254,8 +264,13 @@ $$Pr(twins) = Pr(twins|A)*P(A) + Pr(twins|B)*Pr(B)\\
 
 ## 2H2
 We actually already computed this in our solution above:
-$$Pr(A | twins) = \frac{Pr(twins | A)*Pr(A)}{Pr(twins)}\\
-Pr(A | twins) = \frac{0.1*0.5}{0.1*0.5+0.2*0.5}=\frac{1}{3}$$
+
+$$
+\begin{array}{l}
+Pr(A | twins) = \frac{Pr(twins | A)*Pr(A)}{Pr(twins)} \\\\
+Pr(A | twins) = \frac{0.1 \times 0.5}{0.1 \times 0.5+0.2 \times 0.5}=\frac{1}{3}
+\end{array}
+$$
 
 
 ```r
@@ -270,18 +285,27 @@ posterior[1]
 
 ## 2H3
 Since we know the probability of each species giving birth to twins, we can assume that the probability of giving birth to a singleton is just the complement of our previous probabilities. Therefore:
-$$Pr(singleton|A) = 0.9\\
-Pr(singleton | B) = 0.8$$
+$$ \small
+\begin{align}
+Pr(singleton|A) = 0.9\\\\
+Pr(singleton | B) = 0.8
+\end{align}$$
 
 Since we're assuming that the first birth was from twins, we can reuse our probabilities for A and B.
-$$Pr(A) = \frac{1}{3}\\
-Pr(B) = \frac{2}{3}$$
+$$\small
+\begin{align}
+Pr(A) = \frac{1}{3}\\\\
+Pr(B) = \frac{2}{3}
+\end{align}$$
 
 Now we can use Bayes Theorem again to solve the problem:
-$$Pr(A | singleton) = \frac{Pr(singleton|A)*Pr(A)}{Pr(singleton)} \\
-= \frac{0.9*\frac{1}{3}}{0.9*\frac{1}{3} + 0.8*\frac{2}{3}} \\
-= \frac{0.3}{0.3 + 0.8333} \\
-= 0.36$$
+$$\small
+\begin{align}
+Pr(A | singleton) &= \frac{Pr(singleton|A)Pr(A)}{Pr(singleton)} \\\\
+&= \frac{0.9*\frac{1}{3}}{0.9*\frac{1}{3} + 0.8*\frac{2}{3}} \\\\
+&= \frac{0.3}{0.3 + 0.8333} \\\\
+&= 0.36
+\end{align}$$
 
 
 ```r
@@ -302,29 +326,36 @@ I want to preface this solution, this question gave me some trouble and after go
 
 We know that the probability this test correctly identifies a panda from species A is 0.8, we also know that the probability this test correctly identifies a panda from species B is 0.65. I've included the following type error chart to help visualize the test.
 
+![](/img/statistical-rethinking/ps/Chapter_02_files/figure-html/ch2_type_errors.png)<!-- -->
 
-```r
-include_graphics("ch2_type_errors.png")
-```
-
-<img src="ch2_type_errors.png" width="561" />
 We can interpret this as
-$$Pr(test\space says \space A| A) = 0.8 \\
-Pr(test \space says \space B | B) = 0.65$$
+$$
+\begin{array}{l}
+Pr(test\space says \space A| A) = 0.8 \\\\
+Pr(test \space says \space B | B) = 0.65
+\end{array}
+$$
 
 Since TP + FN = 1 and FP + TN = 1 we can see that
 
-$$Pr(test\space says \space A| B) = 0.35 \\
-Pr(test \space says \space B| A) = 0.2$$
+$$
+\begin{array}{l}
+Pr(test\space says \space A| B) = 0.35 \\\\
+Pr(test \space says \space B| A) = 0.2
+\end{array}
+$$
 
 I hope the chart above helps illustrate why this is the case. Now back to the question. We are first ignoring the previous information about births and computing the posterior probability that the panda is species A given the test tells us it's species A.
 
-$$Pr(A| test \space says \space A) = \frac{Pr(test \space says \space A | A)*Pr(A)}{Pr(test \space says \space A)} \\
-= \frac{Pr(test \space says \space A | A)*Pr(A)}{Pr(test \space says \space A|A)*Pr(A) + Pr(test \space says \space A|B)*Pr(B)} \\
-= \frac{0.8*0.5}{0.8*0.5 + 0.35*0.5} \\
-= \frac{0.4}{0.575} \\
-= 0.696$$
-
+$$\small
+\begin{align}
+Pr(A| \text{test says } A) &= \frac{Pr(\text{test says } A | A)*Pr(A)}{Pr(\text{test says } A)} \\\\
+&= \frac{Pr(\text{test says } A | A)*Pr(A)}{Pr(\text{test says } A | A)*Pr(A) + Pr(\text{test says } A | B)*Pr(B))} \\\\
+&= \frac{0.8 \times 0.5}{0.8 \times 0.5 + 0.35 \times 0.5} \\\\
+&= \frac{0.4}{0.575} \\\\
+&= 0.696
+\end{align}
+$$
 
 ```r
 likelihood <- c(0.8, 0.35)
@@ -339,11 +370,16 @@ posterior[1]
 ```
 
 Now we will use the birth data
-$$Pr(twins | A) = 0.1\\
-Pr(twins | B) = 0.2 \\
-Pr(A|twins) = \frac{Pr(twins|A)*Pr(A)}{Pr(twins)}\\
-=\frac{0.1*0.696}{0.1*0.696 + 0.2*(1-0.696)} \\
-= 0.533$$
+
+$$
+\begin{array}{l}
+Pr(twins | A) = 0.1\\\\
+Pr(twins | B) = 0.2 \\\\
+Pr(A|twins) = \frac{Pr(twins|A)Pr(A)}{Pr(twins)}\\\\
+=\frac{0.1 \times 0.696}{0.1 \times 0.696 + 0.2 \times (1-0.696)} \\\\
+= 0.533
+\end{array}
+$$
 
 
 ```r
