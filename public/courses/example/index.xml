@@ -321,12 +321,18 @@ probability[1]
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;2h1&#34;&gt;2H1&lt;/h2&gt;
 &lt;p&gt;The relevant information here is that the probability of a panda giving birth to twins given that it&amp;rsquo;s from species A is 10% and species B is 20%. Also, that both species of panda are equally common so. From this we know the following:&lt;/p&gt;
-&lt;p&gt;$$Pr(twins | A) = 0.1\&lt;br&gt;
-Pr(twins | B) = 0.2\&lt;br&gt;
-Pr(A) = Pr(B) = 0.5$$&lt;/p&gt;
+&lt;p&gt;$$ \begin{array}{l}
+Pr(twins | A) = 0.1\\&lt;br&gt;
+Pr(twins | B) = 0.2\\&lt;br&gt;
+Pr(A) = Pr(B) = 0.5
+\end{array}$$&lt;/p&gt;
 &lt;p&gt;Using Bayes Theorem we can find the following:&lt;/p&gt;
-&lt;p&gt;$$Pr(A | twins) = \frac{Pr(twins | A)&lt;em&gt;Pr(A)}{Pr(twins)}\&lt;br&gt;
-Pr(A | twins) = \frac{0.1&lt;/em&gt;0.5}{0.1&lt;em&gt;0.5+0.2&lt;/em&gt;0.5}=\frac{1}{3}$$&lt;/p&gt;
+&lt;p&gt;$$ \small \begin{align}
+Pr(A | twins) &amp;amp; = \frac{Pr(twins | A)*Pr(A)}{Pr(twins)} \\&lt;br&gt;
+Pr(A | twins) &amp;amp; = \frac{0.1 \times 0.5}{0.1 \times 0.5 + 0.2 \times 0.5} \\&lt;br&gt;
+&amp;amp; =\frac{0.05}{.15} \\&lt;br&gt;
+&amp;amp; =\frac{1}{3}
+\end{align}$$&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;likelihood &amp;lt;- c(0.1, 0.2)
 prior &amp;lt;- c(1,1)
 posterior &amp;lt;- likelihood * prior
@@ -338,33 +344,50 @@ posterior[1]
 &lt;p&gt;From this we can see that
 $$Pr(B | twins) = 1 - Pr(A | twins) = \frac{2}{3}$$&lt;/p&gt;
 &lt;p&gt;Now we can calculate Pr(twins)&lt;/p&gt;
-&lt;p&gt;$$Pr(twins) = Pr(twins|A)&lt;em&gt;P(A) + Pr(twins|B)&lt;em&gt;Pr(B)\&lt;br&gt;
-= 0.1&lt;/em&gt;\frac{1}{3} + 0.2&lt;/em&gt;\frac{2}{3}\&lt;br&gt;
-= 0.1667$$&lt;/p&gt;
+&lt;p&gt;$$
+\begin{aligned}
+Pr(twins) &amp;amp; = Pr(twins | A)Pr(A) + Pr(twins | B)Pr(B) \\&lt;br&gt;
+&amp;amp; = 0.1 \times \frac{1}{3} + 0.2 \times \frac{2}{3} \\&lt;br&gt;
+&amp;amp; = 0.1667
+\end{aligned}
+$$&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;0.1*posterior[1]+0.2*posterior[2]
 &lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 0.1666667
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;2h2&#34;&gt;2H2&lt;/h2&gt;
-&lt;p&gt;We actually already computed this in our solution above:
-$$Pr(A | twins) = \frac{Pr(twins | A)&lt;em&gt;Pr(A)}{Pr(twins)}\&lt;br&gt;
-Pr(A | twins) = \frac{0.1&lt;/em&gt;0.5}{0.1&lt;em&gt;0.5+0.2&lt;/em&gt;0.5}=\frac{1}{3}$$&lt;/p&gt;
+&lt;p&gt;We actually already computed this in our solution above:&lt;/p&gt;
+&lt;p&gt;$$
+\begin{array}{l}
+Pr(A | twins) = \frac{Pr(twins | A)*Pr(A)}{Pr(twins)} \\&lt;br&gt;
+Pr(A | twins) = \frac{0.1 \times 0.5}{0.1 \times 0.5+0.2 \times 0.5}=\frac{1}{3}
+\end{array}
+$$&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;posterior[1]
 &lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 0.3333333
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;2h3&#34;&gt;2H3&lt;/h2&gt;
 &lt;p&gt;Since we know the probability of each species giving birth to twins, we can assume that the probability of giving birth to a singleton is just the complement of our previous probabilities. Therefore:
-$$Pr(singleton|A) = 0.9\&lt;br&gt;
-Pr(singleton | B) = 0.8$$&lt;/p&gt;
+$$ \small
+\begin{align}
+Pr(singleton|A) = 0.9\\&lt;br&gt;
+Pr(singleton | B) = 0.8
+\end{align}$$&lt;/p&gt;
 &lt;p&gt;Since we&amp;rsquo;re assuming that the first birth was from twins, we can reuse our probabilities for A and B.
-$$Pr(A) = \frac{1}{3}\&lt;br&gt;
-Pr(B) = \frac{2}{3}$$&lt;/p&gt;
+$$\small
+\begin{align}
+Pr(A) = \frac{1}{3}\\&lt;br&gt;
+Pr(B) = \frac{2}{3}
+\end{align}$$&lt;/p&gt;
 &lt;p&gt;Now we can use Bayes Theorem again to solve the problem:
-$$Pr(A | singleton) = \frac{Pr(singleton|A)&lt;em&gt;Pr(A)}{Pr(singleton)} \&lt;br&gt;
-= \frac{0.9&lt;/em&gt;\frac{1}{3}}{0.9*\frac{1}{3} + 0.8*\frac{2}{3}} \&lt;br&gt;
-= \frac{0.3}{0.3 + 0.8333} \&lt;br&gt;
-= 0.36$$&lt;/p&gt;
+$$\small
+\begin{align}
+Pr(A | singleton) &amp;amp;= \frac{Pr(singleton|A)Pr(A)}{Pr(singleton)} \\&lt;br&gt;
+&amp;amp;= \frac{0.9*\frac{1}{3}}{0.9*\frac{1}{3} + 0.8*\frac{2}{3}} \\&lt;br&gt;
+&amp;amp;= \frac{0.3}{0.3 + 0.8333} \\&lt;br&gt;
+&amp;amp;= 0.36
+\end{align}$$&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;likelihood &amp;lt;- c(0.9, 0.8)
 prior &amp;lt;- c(1/3, 2/3)
 posterior &amp;lt;- likelihood * prior
@@ -376,21 +399,31 @@ posterior[1]
 &lt;h2 id=&#34;2h4&#34;&gt;2H4&lt;/h2&gt;
 &lt;p&gt;I want to preface this solution, this question gave me some trouble and after going to check my answer I felt like there was a lack of consesus over how it should be done I&amp;rsquo;ll do my best to explain my thought process and hopefully someone will be kind enough to give me some feedback .&lt;/p&gt;
 &lt;p&gt;We know that the probability this test correctly identifies a panda from species A is 0.8, we also know that the probability this test correctly identifies a panda from species B is 0.65. I&amp;rsquo;ve included the following type error chart to help visualize the test.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;include_graphics(&amp;quot;ch2_type_errors.png&amp;quot;)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;ch2_type_errors.png&#34; width=&#34;561&#34; /&gt;
-We can interpret this as
-$$Pr(test\space says \space A| A) = 0.8 \&lt;br&gt;
-Pr(test \space says \space B | B) = 0.65$$&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/statistical-rethinking/ps/Chapter_02_files/figure-html/ch2_type_errors.png&#34; alt=&#34;&#34;&gt;&lt;!-- --&gt;&lt;/p&gt;
+&lt;p&gt;We can interpret this as
+$$
+\begin{array}{l}
+Pr(test\space says \space A| A) = 0.8 \\&lt;br&gt;
+Pr(test \space says \space B | B) = 0.65
+\end{array}
+$$&lt;/p&gt;
 &lt;p&gt;Since TP + FN = 1 and FP + TN = 1 we can see that&lt;/p&gt;
-&lt;p&gt;$$Pr(test\space says \space A| B) = 0.35 \&lt;br&gt;
-Pr(test \space says \space B| A) = 0.2$$&lt;/p&gt;
+&lt;p&gt;$$
+\begin{array}{l}
+Pr(test\space says \space A| B) = 0.35 \\&lt;br&gt;
+Pr(test \space says \space B| A) = 0.2
+\end{array}
+$$&lt;/p&gt;
 &lt;p&gt;I hope the chart above helps illustrate why this is the case. Now back to the question. We are first ignoring the previous information about births and computing the posterior probability that the panda is species A given the test tells us it&amp;rsquo;s species A.&lt;/p&gt;
-&lt;p&gt;$$Pr(A| test \space says \space A) = \frac{Pr(test \space says \space A | A)*Pr(A)}{Pr(test \space says \space A)} \&lt;br&gt;
-= \frac{Pr(test \space says \space A | A)&lt;em&gt;Pr(A)}{Pr(test \space says \space A|A)&lt;em&gt;Pr(A) + Pr(test \space says \space A|B)&lt;em&gt;Pr(B)} \&lt;br&gt;
-= \frac{0.8&lt;/em&gt;0.5}{0.8&lt;/em&gt;0.5 + 0.35&lt;/em&gt;0.5} \&lt;br&gt;
-= \frac{0.4}{0.575} \&lt;br&gt;
-= 0.696$$&lt;/p&gt;
+&lt;p&gt;$$\small
+\begin{align}
+Pr(A| \text{test says } A) &amp;amp;= \frac{Pr(\text{test says } A | A)*Pr(A)}{Pr(\text{test says } A)} \\&lt;br&gt;
+&amp;amp;= \frac{Pr(\text{test says } A | A)*Pr(A)}{Pr(\text{test says } A | A)*Pr(A) + Pr(\text{test says } A | B)*Pr(B))} \\&lt;br&gt;
+&amp;amp;= \frac{0.8 \times 0.5}{0.8 \times 0.5 + 0.35 \times 0.5} \\&lt;br&gt;
+&amp;amp;= \frac{0.4}{0.575} \\&lt;br&gt;
+&amp;amp;= 0.696
+\end{align}
+$$&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;likelihood &amp;lt;- c(0.8, 0.35)
 prior &amp;lt;- c(1, 1)
 posterior &amp;lt;- likelihood * prior
@@ -399,12 +432,16 @@ posterior[1]
 &lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 0.6956522
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now we will use the birth data
-$$Pr(twins | A) = 0.1\&lt;br&gt;
-Pr(twins | B) = 0.2 \&lt;br&gt;
-Pr(A|twins) = \frac{Pr(twins|A)&lt;em&gt;Pr(A)}{Pr(twins)}\&lt;br&gt;
-=\frac{0.1&lt;/em&gt;0.696}{0.1&lt;em&gt;0.696 + 0.2&lt;/em&gt;(1-0.696)} \&lt;br&gt;
-= 0.533$$&lt;/p&gt;
+&lt;p&gt;Now we will use the birth data&lt;/p&gt;
+&lt;p&gt;$$
+\begin{array}{l}
+Pr(twins | A) = 0.1\\&lt;br&gt;
+Pr(twins | B) = 0.2 \\&lt;br&gt;
+Pr(A|twins) = \frac{Pr(twins|A)Pr(A)}{Pr(twins)}\\&lt;br&gt;
+=\frac{0.1 \times 0.696}{0.1 \times 0.696 + 0.2 \times (1-0.696)} \\&lt;br&gt;
+= 0.533
+\end{array}
+$$&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;likelihood &amp;lt;- c(0.1, 0.2)
 prior &amp;lt;- c(0.696, 0.304)
 posterior &amp;lt;- likelihood * prior
@@ -1191,12 +1228,37 @@ d &amp;lt;- data.frame(&amp;quot;Problem&amp;quot; = c(&amp;quot;HPDI lower boun
 
 knitr::kable(d)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Problem             Uniform.prior   Updated.prior&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;HPDI lower bound        0.3383383       0.5005005
-HPDI upper bound        0.7317317       0.7097097
-3M3                     0.1428000       0.1592000
-3M4                     0.1695000       0.2357000&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Problem&lt;/th&gt;
+&lt;th&gt;Uniform prior&lt;/th&gt;
+&lt;th&gt;Updated prior&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;HPDI lower bound&lt;/td&gt;
+&lt;td&gt;0.3383383&lt;/td&gt;
+&lt;td&gt;0.5005005&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;HPDI upper bound&lt;/td&gt;
+&lt;td&gt;0.7317317&lt;/td&gt;
+&lt;td&gt;0.7097097&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;3M3&lt;/td&gt;
+&lt;td&gt;0.1428000&lt;/td&gt;
+&lt;td&gt;0.1592000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;3M4&lt;/td&gt;
+&lt;td&gt;0.1695000&lt;/td&gt;
+&lt;td&gt;0.2357000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 &lt;h2 id=&#34;3h1&#34;&gt;3H1&lt;/h2&gt;
 &lt;p&gt;The practice problems here all use the data below. These data indicate the gender (male = 1, female = 0) of officially reported first and second born children in 100 two-child families.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;data(homeworkch3)
