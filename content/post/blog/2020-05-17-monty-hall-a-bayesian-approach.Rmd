@@ -21,13 +21,13 @@ I remember watching the movie 21 growing up and being completely stunned by one 
 
 In the movie, the Ben, instantly accepts the option to switch, claiming he now gets better odds from switching. But why? There was seemingly a one in three chance of picking the car in the beggining - what changed? To quote Ben, everything.
 
-In the movie 21, this was called the game show problem, but it is perhaps known better as the Monty Hall problem, and it actually has quite an interesting history. It gained notoriety after a newspaper columnist Marilyn Vos Savant posed the question in her column, "Ask Marilyn". Vos Savant claimed that switching would give a $\frac{2}{3}$ chance of getting the car, whereas staying with the same choice yielded only $\frac{1}{3}$ chance.
+In the movie this was called the game show problem, but it is perhaps better known as the Monty Hall problem, and it actually has quite an interesting history. It gained notoriety after a newspaper columnist Marilyn Vos Savant posed the question in her column, "Ask Marilyn". Vos Savant claimed that switching would give a $\frac{2}{3}$ chance of getting the car, whereas staying with the same choice yielded only $\frac{1}{3}$ chance.
 
 This was very controversial at the time, many readers refused to believe that switching changed the odds. Nearly 1,000 people with PhDs wrote in claiming that vos Savant was wrong. Even my favorite mathematician, Paul Erdős, one of the most prolific mathematicians in history, remained unconvinced until he was shown a computer simulation. Suffice it to say, this is an unintuitive result, so don't despair if you thought that there was no difference - you're in good company. I think one of the easiest ways to understand why the odds change is through using Bayes' theorem
 
-Let's start by breaking down this problem to it's basics, and to steal some terminology from Richard McElreath, look at the garden of forking data, which is to say, all the possible outcomes.
+Let's start by breaking this problem down to it's basics. To steal some terminology from Richard McElreath, we're going look at the garden of forking data, which is to say - all the possible outcomes.
 
-Suppose we chose door A, the game show host knows what's behind each door, so he's not going to reveal the door with the car behind it. Therefore, we know the following:
+Suppose we chose door A. The game show host knows what's behind each door, so he's not going to reveal the door with the car behind it. Therefore, we know the following:
 $$
 \small
 \begin{array}{l}
@@ -55,7 +55,7 @@ Pr(\text{open door C | car is behind A}) = \frac{1}{2}
 $$
 
 
-Now we have all the information we need to solve this problem, I'm going to put everything we just worked on down below in a slightly different order, hopefully this will make it easier to visualize that we've covered all the possible outcomes.
+Now we have all the information that we need to solve this problem, I'm going to put everything we worked on down below in a slightly different order. Hopefully this will make it easier to visualize that we've covered all the possible outcomes.
 $$
 \small
 \begin{array}{l}
