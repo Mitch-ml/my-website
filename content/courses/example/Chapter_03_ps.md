@@ -265,14 +265,12 @@ d <- data.frame("Problem" = c("HPDI lower bound", "HPDI upper bound", "3M3", "3M
 knitr::kable(d)
 ```
 
-
-
-Problem             Uniform.prior   Updated.prior
------------------  --------------  --------------
-HPDI lower bound        0.3383383       0.5005005
-HPDI upper bound        0.7317317       0.7097097
-3M3                     0.1428000       0.1592000
-3M4                     0.1695000       0.2357000
+|Problem           |  Uniform prior |  Updated prior|
+|----------------- | -------------- | --------------|
+|HPDI lower bound  |      0.3383383 |      0.5005005|
+|HPDI upper bound  |      0.7317317 |      0.7097097|
+|3M3               |      0.1428000 |      0.1592000|
+|3M4               |      0.1695000 |      0.2357000|
 
 ## 3H1
 The practice problems here all use the data below. These data indicate the gender (male = 1, female = 0) of officially reported first and second born children in 100 two-child families.
