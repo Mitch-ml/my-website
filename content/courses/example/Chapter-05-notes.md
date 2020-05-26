@@ -433,16 +433,27 @@ pairs(d)
 ![](/img/statistical-rethinking/notes/Chapter-05_files/figure-html/unnamed-chunk-13-1.png)<!-- -->
 
 ```r
-m1 <- lm(y ~ x_real + x_spur, data = d)
-precis(m1)
+m <- quap(
+  alist(
+    y ~ dnorm( mu , sigma ),
+    mu <- Intercept +
+        b_real*x_real +
+        b_spur*x_spur,
+    Intercept ~ dnorm(0,10),
+    b_real ~ dnorm(0,10),
+    b_spur ~ dnorm(0,10),
+    sigma ~ dunif(0,1)
+), data = d)
+precis(m)
 ```
 
-```
-##                    mean         sd          5.5%      94.5%
-## (Intercept) -0.09546251 0.09518516 -0.2475867837 0.05666177
-## x_real       0.94207892 0.12043628  0.7495984747 1.13455936
-## x_spur       0.13654015 0.08550113 -0.0001071591 0.27318747
-```
+|             |   mean  |   sd  |  5.5%  | 94.5%|
+|-------------|---------|-------|--------|------|
+| (Intercept) |  -0.17  | 0.10  | -0.33  | -0.01| 
+| x_real      |   1.02  | 0.16  |  0.77  |  1.27| 
+| x_spur      |  -0.02  | 0.11  | -0.20  |  0.15| 
+| sigma       |   0.99  | 0.07  |  0.88  |  1.10|
+
 
 ## Masked relationships
 As we just saw, multiple predictor variables can know out spurious associations, but they can also show relationships that would otherwise be hidden when only looking at bivariate relations. Specifically this can arise when two predictor variables are correlated with each other - but one is correlated positively with the outcome while the other is correlated negatively with the outcome.
@@ -612,46 +623,65 @@ pairs(d)
 
 
 ```r
-lm(y ~ x_pos, data = d)
+m1 <- quap(
+  alist(
+    y ~ dnorm( mu , sigma ),
+    mu <- a +
+        b_pos*x_pos,
+    a ~ dnorm(0,10),
+    b_pos ~ dnorm(0,10),
+    sigma ~ dunif(0,5)
+), data = d)
+
+m2 <- quap(
+  alist(
+    y ~ dnorm( mu , sigma ),
+    mu <- a +
+        b_neg*x_neg,
+    a ~ dnorm(0,10),
+    b_neg ~ dnorm(0,10),
+    sigma ~ dunif(0,5)
+), data = d)
+
+m3 <- quap(
+  alist(
+    y ~ dnorm( mu , sigma ),
+    mu <- a +
+        b_pos*x_pos +
+        b_neg*x_neg,
+    a ~ dnorm(0,10),
+    b_pos ~ dnorm(0,10),
+    b_neg ~ dnorm(0,10),
+    sigma ~ dunif(0,5)
+), data = d)
+
+precis(m1)
+precis(m2)
+precis(m3)
 ```
 
-```
-## 
-## Call:
-## lm(formula = y ~ x_pos, data = d)
-## 
-## Coefficients:
-## (Intercept)        x_pos  
-##      0.1048       0.5880
-```
+|        |   mean  |   sd  |  5.5%  | 94.5%|
+|------- |---------|-------|--------|------|
+| a      |  -0.09  | 0.12  | -0.27  |  0.10| 
+| b_pos  |   0.54  | 0.11  |  0.36  |  0.72|
+| sigma  |   1.15  | 0.08  |  1.02  |  1.08|
 
-```r
-lm(y ~ x_neg, data = d)
-```
+|        |   mean  |   sd  |  5.5%  | 94.5%|
+|------- |---------|-------|--------|------|
+| a      |  -0.06  | 0.13  | -0.27  |  0.14| 
+| b_neg  |  -0.08  | 0.14  | -0.30  |  0.15|
+| sigma  |   1.27  | 0.09  |  1.13  |  1.42|
 
-```
-## 
-## Call:
-## lm(formula = y ~ x_neg, data = d)
-## 
-## Coefficients:
-## (Intercept)        x_neg  
-##     0.08695     -0.09513
-```
+|        |   mean  |   sd  |  5.5%  | 94.5%|
+|------- |---------|-------|--------|------|
+| a      |  -0.11  | 0.10  | -0.28  |  0.05| 
+| b_pos  |   0.92  | 0.13  |  0.72  |  1.13|
+| b_neg  |  -0.70  | 0.14  | -0.93  | -0.47|
+| sigma  |   1.03  | 0.07  |  0.91  |  1.15|
 
-```r
-lm(y ~ x_pos + x_neg, data = d)
-```
 
-```
-## 
-## Call:
-## lm(formula = y ~ x_pos + x_neg, data = d)
-## 
-## Coefficients:
-## (Intercept)        x_pos        x_neg  
-##      0.2316       1.1193      -0.9225
-```
+
+
 
 Using just $x_\text{pos}$ or $x_\text{neg}$ gives a posterior distribution that underestimates the true association (which should be around $\pm 1$). Using both predictors gives a posterior distribution closer to the truth. 
 
