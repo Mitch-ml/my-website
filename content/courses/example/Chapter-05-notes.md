@@ -739,7 +739,7 @@ precis(m)
 plot(precis(m))
 ```
 
-![](/img/statistical-rethinking/notes/Chapter-05_files/figure-html/unnamed-chunk-23-1.png)<!-- -->
+![](/img/statistical-rethinking/notes/Chapter-05_files/figure-html/rplot1.png)<!-- -->
 
 As we can see here from the table, something is clearly off, and look at the intervals for each of the beta coefficients! So what happened here? Recall that a multiple linear regression answers the question, what is the value of knowing each predictor, after knowing all the other predictors? Which here becomes, what is the value of knowing each leg's length, after already knowing the other legs length?
 
