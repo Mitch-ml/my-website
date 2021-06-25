@@ -24,7 +24,7 @@ date_format = "Jan 2006"
   location = "Vermont"
   date_start = "2021-09-01"
   date_end = ""
-  description = """First year masters student at the Unviersity of Vermont's in Complex Systems and Data Science. Hoping to develop novel uses of natural language processisng to modernize the way we currently draft and propose legislation.
+  description = """First year masters student at the Unviersity of Vermont in Complex Systems and Data Science. Hoping to develop novel uses of natural language processisng to modernize the way we currently draft and propose legislation.
   
   * Python
   * Natural language processing
