@@ -4,14 +4,18 @@ authors:
 bio: My research interests include survival analysis, bayesian statistics, statistical learning, and finance.
 education:
   courses:
+  - course: MS in Complex Systems and Data Science
+    institution: University of Vermmont
+    year: 2023
   - course: BS in Mathematics
     institution: St. Lawrence University
     year: 2015
 email: ""
 interests:
-- Survival Analysis
-- Statistical Learning
-- Finance
+- Public Policy
+- Natural Language Processing
+- Cooking
+- Biking
 organizations:
 - name: Vespers Capital, LLC
   url: ""
