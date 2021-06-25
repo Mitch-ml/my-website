@@ -42,7 +42,7 @@ I’ve worked with [stage 1 start-ups][1] and [venture capital funds][2], buildi
 
 I have a bachelors degree in Mathematics from St. Lawrence University, where I did my thesis on the [Erdos-Faber-Lovasz conjecture][3]. After spending some time pursuing other interests[^1], I began working at a young startup where I got introduced to a range of topics in statistics and data analytics. I primarily focus on using survival analysis to help predict customer churn, but I’m constantly trying to develop and learn new skills. For more details, check out my portfolio, or take a look at my [resume][4].
 
-I currently reside in Litchfield, CT.
+I currently reside in South Burlington, VT.
 
 [1]: http://www.cobblehillpartners.com/home
 [2]: https://www.closedlooppartners.com/funds/closed-loop-venture-fund/
