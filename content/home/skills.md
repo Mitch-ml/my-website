@@ -17,6 +17,12 @@ subtitle = ""
 # I found icons through: https://fontawesome.com/icons?d=gallery&m=free
 
 [[feature]]
+  icon = "python"
+  icon_pack = "fas"
+  name = "Python"
+  # description = "10%"
+
+[[feature]]
   icon = "r-project"
   icon_pack = "fab"
   name = "R"
@@ -28,10 +34,4 @@ subtitle = ""
   name = "Statistics"
   # description = "100%"  
   
-[[feature]]
-  icon = "fire"
-  icon_pack = "fas"
-  name = "Cooking"
-  # description = "10%"
-
 +++
