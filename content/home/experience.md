@@ -18,19 +18,32 @@ date_format = "Jan 2006"
 #   Leave `date_end` empty if it's your current employer.
 #   Begin/end multi-line descriptions with 3 quotes `"""`.
 [[experience]]
-  title = "Masters Student"
+  title = "Graduate Researcher"
   company = "University of Vermont"
   company_url = "https://vermontcomplexsystems.org/"
   location = "Vermont"
   date_start = "2021-09-01"
-  date_end = ""
-  description = """First year masters student at the Unviersity of Vermont in Complex Systems and Data Science. Hoping to develop novel uses of natural language processisng to modernize the way we currently draft and propose legislation.
+  date_end = "2023-05-15"
+  description = """As a Masters student at the University of Vermont I work in the OCEAN lab studying open source communities. Current research has been focused on the effects of COVID-19 on GitHub teams. However, I'm also interested in applications of machine learning and hope to develop novel uses of natural language processisng to modernize the way we currently draft and propose legislation.
   
   * Python
   * Natural language processing
   * Machine Learning
   """
   
+[[experience]]
+  title = "Machine Learning Engineer"
+  company = "Deep Analytics"
+  company_url = "https://www.deepanalyticsllc.com/"
+  location = "Vermont"
+  date_start = "2022-06-01"
+  date_end = "20220-09-01"
+  description = """Leverage deep learning frameworks to build advanced computer vision applications.
+  
+  * Computer Vision
+  * Custom Architecture
+  * Python
+  """
 
 [[experience]]
   title = "Data Scientist"
