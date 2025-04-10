@@ -1,7 +1,7 @@
 ---
 authors:
 - admin
-bio: My research interests include survival analysis, bayesian statistics, statistical learning, and finance.
+bio: My current research interests focus on leveraging large language models for exctracting consumer insights in online reviews.
 education:
   courses:
   - course: MS in Complex Systems and Data Science
@@ -17,8 +17,8 @@ interests:
 - Cooking
 - Biking
 organizations:
-- name: Vespers Capital, LLC
-  url: ""
+- name: Widewail
+  url: "https://www.widewail.com"
 role: Data Scientist
 social:
 - icon: envelope
